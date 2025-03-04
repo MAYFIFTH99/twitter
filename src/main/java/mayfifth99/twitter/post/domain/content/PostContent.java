@@ -13,7 +13,7 @@ public class PostContent extends Content{
 
     @Override
     void checkText(String content) {
-        if(content.isBlank() || content.length() < MIN_LENGTH){
+        if(content == null || content.isBlank() || content.length() < MIN_LENGTH){
             throw new IllegalArgumentException("최소 5자 이상 입력해주세요.");
         }
 

@@ -1,10 +1,12 @@
 package mayfifth99.twitter.post.domain;
 
+import lombok.Getter;
 import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
 import mayfifth99.twitter.post.domain.content.PostContent;
 import mayfifth99.twitter.post.domain.content.PostPublicationState;
 import mayfifth99.twitter.user.domain.User;
 
+@Getter
 public class Post {
     private final Long id;
     private final User author;
@@ -42,5 +44,9 @@ public class Post {
         this.state = state;
         this.content.updateContent(content);
 
+    }
+
+    public int getLikeCount(){
+        return likeCount.getCount();
     }
 }
