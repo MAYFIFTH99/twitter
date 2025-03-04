@@ -1,5 +1,8 @@
 package mayfifth99.twitter.common.domain;
 
+import lombok.Getter;
+
+@Getter
 public class PositiveIntegerCounter {
     private int count;
 
