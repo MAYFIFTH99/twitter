@@ -1,5 +1,8 @@
 package mayfifth99.twitter.user.domain;
 
+import lombok.Getter;
+
+@Getter
 public class UserInfo {
     private final String name;
     private final String imageUrl;
