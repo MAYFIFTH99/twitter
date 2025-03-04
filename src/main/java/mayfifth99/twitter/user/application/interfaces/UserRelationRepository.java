@@ -1,4 +1,4 @@
-package mayfifth99.twitter.user.application;
+package mayfifth99.twitter.user.application.interfaces;
 
 import mayfifth99.twitter.user.domain.User;
 
