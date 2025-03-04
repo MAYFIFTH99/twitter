@@ -38,4 +38,12 @@ public class User {
     private void decreaseFollowCount(){
         followerCounter.decrease();
     }
+
+    public int getFollowingCount(){
+        return followingCounter.getCount();
+    }
+
+    public int getFollowerCount(){
+        return followerCounter.getCount();
+    }
 }
