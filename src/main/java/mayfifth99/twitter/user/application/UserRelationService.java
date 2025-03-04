@@ -2,6 +2,7 @@ package mayfifth99.twitter.user.application;
 
 import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.user.application.dto.FollowUserRequestDto;
+import mayfifth99.twitter.user.application.interfaces.UserRelationRepository;
 import mayfifth99.twitter.user.domain.User;
 import org.springframework.stereotype.Service;
 
