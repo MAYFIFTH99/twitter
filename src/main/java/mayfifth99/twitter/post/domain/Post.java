@@ -1,5 +1,8 @@
 package mayfifth99.twitter.post.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
@@ -8,6 +11,8 @@ import mayfifth99.twitter.post.domain.content.PostPublicationState;
 import mayfifth99.twitter.user.domain.User;
 
 @Getter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "id")
 public class Post {
     private final Long id;
