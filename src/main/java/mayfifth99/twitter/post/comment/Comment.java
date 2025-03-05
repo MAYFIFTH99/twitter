@@ -1,10 +1,12 @@
 package mayfifth99.twitter.post.comment;
 
+import lombok.Getter;
 import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
 import mayfifth99.twitter.post.domain.Post;
 import mayfifth99.twitter.post.domain.content.CommentContent;
 import mayfifth99.twitter.user.domain.User;
 
+@Getter
 public class Comment {
 
     private final Long id;
@@ -42,10 +44,19 @@ public class Comment {
         likeCount.decrease();
     }
 
+
     public void updateComment(User user, String content){
         if(!author.equals(user)){
             throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
         }
         this.content.updateContent(content);
+    }
+
+    public String getContent(){
+        return content.getContent();
+    }
+
+    public int getLikeCount(){
+        return likeCount.getCount();
     }
 }
