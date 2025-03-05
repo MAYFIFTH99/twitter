@@ -1,18 +1,21 @@
 package mayfifth99.twitter.post.comment;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
 import mayfifth99.twitter.post.domain.Post;
 import mayfifth99.twitter.post.domain.content.CommentContent;
+import mayfifth99.twitter.post.domain.content.Content;
 import mayfifth99.twitter.user.domain.User;
 
 @Getter
+@EqualsAndHashCode(of = "id")
 public class Comment {
 
     private final Long id;
     private final Post post;
     private final User author;
-    private final CommentContent content;
+    private final Content content;
     private final PositiveIntegerCounter likeCount;
 
 
@@ -20,7 +23,7 @@ public class Comment {
         return new Comment(null, post, author, new CommentContent(content));
     }
 
-    public Comment(Long id, Post post, User author, CommentContent content) {
+    public Comment(Long id, Post post, User author, Content content) {
         if (post == null) {
             throw new IllegalArgumentException("게시글은 필수입니다.");
         }
@@ -60,7 +63,9 @@ public class Comment {
     public String getContent() {
         return content.getContent();
     }
-
+    public Content getContentObject(){
+        return content;
+    }
     public int getLikeCount() {
         return likeCount.getCount();
     }
