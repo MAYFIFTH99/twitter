@@ -4,23 +4,18 @@ package mayfifth99.twitter.user.application;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import mayfifth99.twitter.fake.FakeObjectFactory;
 import mayfifth99.twitter.user.application.dto.CreateUserRequestDto;
 import mayfifth99.twitter.user.application.dto.FollowUserRequestDto;
-import mayfifth99.twitter.user.application.interfaces.UserRelationRepository;
-import mayfifth99.twitter.user.application.interfaces.UserRepository;
 import mayfifth99.twitter.user.domain.User;
-import mayfifth99.twitter.user.repository.FakeUserRelationRepository;
-import mayfifth99.twitter.user.repository.FakeUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class UserRelationServiceTest {
 
 
-    private final UserRelationRepository userRelationRepository = new FakeUserRelationRepository();
-    private final UserRepository userRepository = new FakeUserRepository();
-    private final UserService userService = new UserService(userRepository);
-    private final UserRelationService userRelationService = new UserRelationService(userRelationRepository,userService);
+    private final UserService userService = FakeObjectFactory.getUserService();
+    private final UserRelationService userRelationService = FakeObjectFactory.getUserRelationService();
 
     private User user1;
     private User user2;

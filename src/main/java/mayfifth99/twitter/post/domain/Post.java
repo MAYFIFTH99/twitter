@@ -1,5 +1,6 @@
 package mayfifth99.twitter.post.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
 import mayfifth99.twitter.post.domain.content.PostContent;
@@ -7,6 +8,7 @@ import mayfifth99.twitter.post.domain.content.PostPublicationState;
 import mayfifth99.twitter.user.domain.User;
 
 @Getter
+@EqualsAndHashCode(of = "id")
 public class Post {
     private final Long id;
     private final User author;
@@ -14,8 +16,8 @@ public class Post {
     private final PositiveIntegerCounter likeCount;
     private PostPublicationState state;
 
-    public static Post createPost(Long id, User author, String content, PostPublicationState state){
-        return new Post(id, author, new PostContent(content), state);
+    public static Post createPost(User author, String content, PostPublicationState state){
+        return new Post(null, author, new PostContent(content), state);
     }
 
     public static Post createDefaultPost(User author, String content){

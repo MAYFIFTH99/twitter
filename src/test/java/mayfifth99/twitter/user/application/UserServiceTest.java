@@ -2,16 +2,14 @@ package mayfifth99.twitter.user.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import mayfifth99.twitter.fake.FakeObjectFactory;
 import mayfifth99.twitter.user.application.dto.CreateUserRequestDto;
-import mayfifth99.twitter.user.application.interfaces.UserRepository;
 import mayfifth99.twitter.user.domain.User;
-import mayfifth99.twitter.user.repository.FakeUserRepository;
 import org.junit.jupiter.api.Test;
 
 class UserServiceTest {
 
-    private final UserRepository userRepository = new FakeUserRepository();
-    private final UserService userService = new UserService(userRepository);
+    private final UserService userService = FakeObjectFactory.getUserService();
 
     @Test
     void givenUserInfoDto_whenCreateUser_thenCanFindUser() throws Exception {
