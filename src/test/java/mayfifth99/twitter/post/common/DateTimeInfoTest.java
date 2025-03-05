@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 class DateTimeInfoTest {
 
-
     @Test
     void givenCreated_whenUpdated_thenTimeAndStateArgsUpdated() throws Exception {
         //given

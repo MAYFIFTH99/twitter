@@ -14,7 +14,15 @@ public class Post {
     private final PositiveIntegerCounter likeCount;
     private PostPublicationState state;
 
-    public Post(Long id, User author, PostContent content) {
+    public static Post createPost(Long id, User author, String content, PostPublicationState state){
+        return new Post(id, author, new PostContent(content), state);
+    }
+
+    public static Post createDefaultPost(User author, String content){
+        return new Post(null, author, new PostContent(content), PostPublicationState.PUBLIC);
+    }
+
+    public Post(Long id, User author, PostContent content, PostPublicationState state) {
         if(author == null){
             throw new IllegalArgumentException("작성자는 필수입니다.");
         }
@@ -23,7 +31,7 @@ public class Post {
         this.author = author;
         this.content = content;
         this.likeCount = new PositiveIntegerCounter();
-        this.state = PostPublicationState.PUBLIC;
+        this.state = state;
     }
 
     public void like(User user){

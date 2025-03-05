@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import mayfifth99.twitter.post.domain.Post;
 import mayfifth99.twitter.post.domain.content.CommentContent;
 import mayfifth99.twitter.post.domain.content.PostContent;
+import mayfifth99.twitter.post.domain.content.PostPublicationState;
 import mayfifth99.twitter.user.domain.User;
 import mayfifth99.twitter.user.domain.UserInfo;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class CommentTest {
     private final User user = new User(1L, new UserInfo("name", "url"));
     private final User otherUser = new User(2L, new UserInfo("name", "url"));
 
-    private final Post post = new Post(1L, user, new PostContent("postContent"));
+    private final Post post = new Post(1L, user, new PostContent("postContent"), PostPublicationState.PUBLIC);
     private final Comment comment = new Comment(1L, post, user, new CommentContent("CommentContent"));
 
     @Test
