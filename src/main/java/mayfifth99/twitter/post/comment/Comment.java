@@ -15,14 +15,19 @@ public class Comment {
     private final CommentContent content;
     private final PositiveIntegerCounter likeCount;
 
+
+    public static Comment createComment(Post post, User author, String content) {
+        return new Comment(null, post, author, new CommentContent(content));
+    }
+
     public Comment(Long id, Post post, User author, CommentContent content) {
-        if(post == null){
+        if (post == null) {
             throw new IllegalArgumentException("게시글은 필수입니다.");
         }
-        if(author == null){
+        if (author == null) {
             throw new IllegalArgumentException("작성자는 필수입니다.");
         }
-        if(content == null){
+        if (content == null) {
             throw new IllegalArgumentException("내용은 필수입니다.");
         }
 
@@ -33,30 +38,30 @@ public class Comment {
         this.likeCount = new PositiveIntegerCounter();
     }
 
-    public void like(User user){
-        if(author.equals(user)){
+    public void like(User user) {
+        if (author.equals(user)) {
             throw new IllegalArgumentException("자신의 글은 좋아요 할 수 없습니다.");
         }
         likeCount.increase();
     }
 
-    public void unlike(User user){
+    public void unlike(User user) {
         likeCount.decrease();
     }
 
 
-    public void updateComment(User user, String content){
-        if(!author.equals(user)){
+    public void updateComment(User user, String content) {
+        if (!author.equals(user)) {
             throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
         }
         this.content.updateContent(content);
     }
 
-    public String getContent(){
+    public String getContent() {
         return content.getContent();
     }
 
-    public int getLikeCount(){
+    public int getLikeCount() {
         return likeCount.getCount();
     }
 }

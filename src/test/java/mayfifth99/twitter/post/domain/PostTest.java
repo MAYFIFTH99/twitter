@@ -19,7 +19,7 @@ class PostTest {
     @Test
     void givenPostCreate_whenLike_thenLikeCountShouldBeOne() throws Exception {
         //given
-        Post post = new Post(1L, user1, postContent);
+        Post post = new Post(1L, user1, postContent, PostPublicationState.PUBLIC);
 
         //when
         post.like(user2);
@@ -31,13 +31,14 @@ class PostTest {
     @Test
     void givenPostCreated_whenLikeByOtherUser_thenThrowError() throws Exception {
         //when & then
-        assertThrows(IllegalArgumentException.class, () -> new Post(1L, user1, postContent).like(user1));
+        assertThrows(IllegalArgumentException.class, () -> new Post(1L, user1, postContent,
+                PostPublicationState.PUBLIC).like(user1));
     }
 
     @Test
     void givenPostCreatedAndLike_whenUnlike_thenLikeCountShouldBeZero() throws Exception {
         //given
-        Post post = new Post(1L, user1, postContent);
+        Post post = new Post(1L, user1, postContent, PostPublicationState.PUBLIC);
         post.like(user2);
 
         //when
@@ -50,7 +51,7 @@ class PostTest {
     @Test
     void givenPostCreate_whenUnlike_thenLikeCountShouldBeZero() throws Exception {
         //given
-        Post post = new Post(1L, user1, postContent);
+        Post post = new Post(1L, user1, postContent, PostPublicationState.PUBLIC);
         post.like(user2);
 
         //when
@@ -63,7 +64,7 @@ class PostTest {
     @Test
     void givenPostCreate_whenUpdatePost_thenContentAndStateShouldBeUpdated() throws Exception {
         //given
-        Post post = new Post(1L, user1, postContent);
+        Post post = new Post(1L, user1, postContent, PostPublicationState.PUBLIC);
         String updatedContent = "updated content";
 
         //when
@@ -77,6 +78,7 @@ class PostTest {
     @Test
     void givenPostCreate_whenUpdatePostByOtherUser_thenThrowError() throws Exception {
         //when & then
-        assertThrows(IllegalArgumentException.class, () -> new Post(1L, user1, postContent).updatePost(user2, "updated content", PostPublicationState.PRIVATE));
+        assertThrows(IllegalArgumentException.class, () -> new Post(1L, user1, postContent,
+                PostPublicationState.PUBLIC).updatePost(user2, "updated content", PostPublicationState.PRIVATE));
     }
 }
