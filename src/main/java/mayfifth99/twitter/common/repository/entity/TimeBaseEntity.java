@@ -3,6 +3,7 @@ package mayfifth99.twitter.common.repository.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,8 +16,8 @@ public class TimeBaseEntity {
 
     @CreatedDate
     @Column(updatable = false)
-    private Long regDt;
+    private LocalDateTime regDt;
 
     @LastModifiedDate
-    private Long updDt;
+    private LocalDateTime updDt;
 }

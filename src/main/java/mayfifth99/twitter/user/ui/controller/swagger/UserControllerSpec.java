@@ -1,4 +1,4 @@
-package mayfifth99.twitter.user.ui.controller;
+package mayfifth99.twitter.user.ui.controller.swagger;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
