@@ -30,22 +30,22 @@ public class CommentEntity extends TimeBaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id",foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private PostEntity post;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id",foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private UserEntity author;
 
     private String content;
     private int likeCount;
 
-    public CommentEntity(PostEntity post, UserEntity author, String content) {
-        this.post = post;
-        this.author = author;
-        this.content = content;
-        this.likeCount = 0;
+    public CommentEntity(Comment comment) {
+        this.post = new PostEntity(comment.getPost());
+        this.author = new UserEntity(comment.getAuthor());
+        this.content = comment.getContent();
+        this.likeCount = comment.getLikeCount();
     }
 
     public Comment toComment(){

@@ -33,18 +33,16 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public void updateComment(UpdateCommentRequestDto dto){
+    public void updateComment(Long commentId, UpdateCommentRequestDto dto){
         User user = userService.getUser(dto.userId());
-        Comment comment = getComment(dto.commentId());
+        Comment comment = getComment(commentId);
 
         comment.updateComment(user, dto.content());
-
         commentRepository.save(comment);
-
     }
 
-    public void likeComment(LikeRequestDto dto) {
-        Comment comment = getComment(dto.targetId());
+    public void likeComment(Long commentId, LikeRequestDto dto) {
+        Comment comment = getComment(commentId);
         User user = userService.getUser(dto.userId());
 
         if (likeRepository.checkLike(comment, user)) {
@@ -53,17 +51,15 @@ public class CommentService {
 
         comment.like(user);
         likeRepository.like(comment, user);
-        commentRepository.save(comment);
     }
 
-    public void unlikeComment(LikeRequestDto dto) {
-        Comment comment = getComment(dto.targetId());
+    public void unlikeComment(Long commentId, LikeRequestDto dto) {
+        Comment comment = getComment(commentId);
         User user = userService.getUser(dto.userId());
 
         if (likeRepository.checkLike(comment, user)) {
             comment.unlike(user);
             likeRepository.unlike(comment, user);
-            commentRepository.save(comment);
         }
 
 

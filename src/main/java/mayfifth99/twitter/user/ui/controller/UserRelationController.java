@@ -7,6 +7,7 @@ import mayfifth99.twitter.user.application.UserRelationService;
 import mayfifth99.twitter.user.application.dto.FollowUserRequestDto;
 import mayfifth99.twitter.user.application.dto.GetUserListResponseDto;
 import mayfifth99.twitter.user.repository.jpa.JpaUserListQueryRepository;
+import mayfifth99.twitter.user.ui.controller.swagger.UserRelationControllerSpec;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

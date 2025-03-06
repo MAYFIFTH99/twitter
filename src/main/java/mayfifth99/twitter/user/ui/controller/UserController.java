@@ -5,6 +5,7 @@ import mayfifth99.twitter.common.ui.Response;
 import mayfifth99.twitter.user.application.UserService;
 import mayfifth99.twitter.user.application.dto.CreateUserRequestDto;
 import mayfifth99.twitter.user.application.dto.GetUserResponseDto;
+import mayfifth99.twitter.user.ui.controller.swagger.UserControllerSpec;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-public class UserController  implements UserControllerSpec{
+public class UserController implements UserControllerSpec {
 
     private final UserService userService;
 
