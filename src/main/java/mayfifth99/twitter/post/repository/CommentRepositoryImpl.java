@@ -4,6 +4,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.post.application.interfaces.CommentRepository;
 import mayfifth99.twitter.post.comment.Comment;
+import mayfifth99.twitter.post.domain.Post;
 import mayfifth99.twitter.post.repository.entity.comment.CommentEntity;
 import mayfifth99.twitter.post.repository.jpa.JpaCommentRepository;
 import mayfifth99.twitter.post.repository.jpa.JpaPostRepository;
@@ -25,11 +26,13 @@ public class CommentRepositoryImpl implements CommentRepository {
     @Override
     @Transactional
     public Comment save(Comment comment) {
+        Post targetPost = comment.getPost();
         CommentEntity commentEntity = new CommentEntity(comment);
-        if(commentEntity.getId() != null){
+        if (commentEntity.getId() != null) {
             jpaCommentRepository.updateCommentEntity(commentEntity);
             return commentEntity.toComment();
         }
+        jpaPostRepository.increaseCommentCount(targetPost.getId());
         return jpaCommentRepository.save(commentEntity).toComment();
     }
 

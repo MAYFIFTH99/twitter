@@ -22,6 +22,7 @@ import mayfifth99.twitter.post.domain.Post;
 import mayfifth99.twitter.post.domain.content.PostContent;
 import mayfifth99.twitter.post.domain.content.PostPublicationState;
 import mayfifth99.twitter.user.repository.entity.UserEntity;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -40,6 +41,9 @@ public class PostEntity extends TimeBaseEntity {
 
     private String content;
     private int likeCount;
+
+    @ColumnDefault("0")
+    private int commentCount;
 
     @Enumerated(EnumType.STRING)
     private PostPublicationState state;
