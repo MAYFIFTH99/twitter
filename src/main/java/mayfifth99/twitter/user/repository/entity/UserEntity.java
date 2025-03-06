@@ -13,12 +13,13 @@ import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
 import mayfifth99.twitter.common.repository.entity.TimeBaseEntity;
 import mayfifth99.twitter.user.domain.User;
 import mayfifth99.twitter.user.domain.UserInfo;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-
+@DynamicUpdate
 @Table(name = "community_user")
 public class UserEntity extends TimeBaseEntity {
 

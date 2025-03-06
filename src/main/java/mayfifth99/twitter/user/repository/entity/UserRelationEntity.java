@@ -6,16 +6,19 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mayfifth99.twitter.common.repository.entity.TimeBaseEntity;
 
 @IdClass(UserRelationId.class)
 @Entity
 @Table(name = "community_user_relation")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserRelationEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class UserRelationEntity extends TimeBaseEntity {
 
     @Id
     private Long followingUserId;
