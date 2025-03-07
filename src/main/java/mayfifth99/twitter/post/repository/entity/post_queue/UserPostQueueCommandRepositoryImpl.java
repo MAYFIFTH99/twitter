@@ -24,14 +24,13 @@ public class UserPostQueueCommandRepositoryImpl implements UserPostQueueCommandR
     @Override
     @Transactional
     public void publishPost(PostEntity postEntity) {
-        UserEntity userEntity = postEntity.getAuthor();
+        UserEntity authorEntity = postEntity.getAuthor();
         // 나를 팔로우하는 사람들의 정보 필요
-        List<Long> followersId = jpaUserRelationRepository.getFollowers(
-                userEntity.getId());
+        List<Long> followersId = jpaUserRelationRepository.getFollowers(authorEntity.getId());
 
         List<UserPostQueueEntity> userPostQueueEntityList = followersId.stream()
                 .map(followerId -> new UserPostQueueEntity(followerId, postEntity.getId(),
-                        userEntity.getId()))
+                        authorEntity.getId()))
                 .toList();
 
         jpaUserPostQueueRepository.saveAll(userPostQueueEntityList);
