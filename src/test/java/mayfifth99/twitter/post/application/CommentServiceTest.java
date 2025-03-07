@@ -13,7 +13,7 @@ class CommentServiceTest extends PostApplicationTestTemplate {
 
     private final CommentService commentService = FakeObjectFactory.getCommentService();
     private final CreateCommentRequestDto commentDto = new CreateCommentRequestDto(post.getId(), user.getId(), "this is comment");
-
+    private final LikeRequestDto likeCommentDto = new LikeRequestDto(post.getId(), otherUser.getId());
     @Test
     void givenCreateCommentRequestDto_whenCreateComment_thenReturnComment() throws Exception {
         //when
@@ -28,12 +28,12 @@ class CommentServiceTest extends PostApplicationTestTemplate {
     @Test
     void givenCreateComment_whenUpdateComment_thenReturnUpdatedComment() throws Exception {
         //given
-        Comment comment = commentService.createComment(commentDto);
+        Comment comment = commentService.createComment(commentDto); //user 작성
 
         //when
         UpdateCommentRequestDto updateCommentRequestDto = new UpdateCommentRequestDto(comment.getId(),
                 user.getId(), "this is updated comment");
-        commentService.updateComment(updateCommentRequestDto);
+        commentService.updateComment(post.getId(), updateCommentRequestDto);
 
         //then
         Comment findComment = commentService.getComment(comment.getId());
@@ -46,8 +46,7 @@ class CommentServiceTest extends PostApplicationTestTemplate {
         Comment comment = commentService.createComment(commentDto);
 
         //when
-        LikeRequestDto likeDto = new LikeRequestDto(comment.getId(), otherUser.getId());
-        commentService.likeComment(likeDto);
+        commentService.likeComment(comment.getId(), likeCommentDto);
 
         //then
         Comment findComment = commentService.getComment(comment.getId());
@@ -60,9 +59,8 @@ class CommentServiceTest extends PostApplicationTestTemplate {
         Comment comment = commentService.createComment(commentDto);
 
         //when
-        LikeRequestDto likeDto = new LikeRequestDto(comment.getId(), otherUser.getId());
-        commentService.likeComment(likeDto);
-        commentService.likeComment(likeDto);
+        commentService.likeComment(comment.getId(),likeCommentDto);
+        commentService.likeComment(comment.getId(), likeCommentDto);
 
         //then
         Comment findComment = commentService.getComment(comment.getId());
@@ -75,9 +73,8 @@ class CommentServiceTest extends PostApplicationTestTemplate {
         Comment comment = commentService.createComment(commentDto);
 
         //when
-        LikeRequestDto likeDto = new LikeRequestDto(comment.getId(), otherUser.getId());
-        commentService.likeComment(likeDto);
-        commentService.unlikeComment(likeDto);
+        commentService.likeComment(comment.getId(), likeCommentDto);
+        commentService.unlikeComment(comment.getId(), likeCommentDto);
 
         //then
         Comment findComment = commentService.getComment(comment.getId());
