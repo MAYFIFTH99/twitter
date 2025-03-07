@@ -19,6 +19,6 @@ public class GetContentResponseDto {
     private LocalDateTime regDt;
     private LocalDateTime updDt;
     private int likeCount;
-    private boolean isLikedByMe;
+    private boolean likedByMe;
 
 }
