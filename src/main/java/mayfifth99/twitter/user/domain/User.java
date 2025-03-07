@@ -1,10 +1,15 @@
 package mayfifth99.twitter.user.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
 
 @Getter
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "id") // User는 id로 구분한다.
 public class User {
     private final Long id;

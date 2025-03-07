@@ -1,5 +1,8 @@
 package mayfifth99.twitter.post.comment;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import mayfifth99.twitter.common.domain.PositiveIntegerCounter;
@@ -10,6 +13,8 @@ import mayfifth99.twitter.user.domain.User;
 
 @Getter
 @EqualsAndHashCode(of = "id")
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Comment {
 
     private final Long id;

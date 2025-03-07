@@ -2,6 +2,7 @@ package mayfifth99.twitter.user.application;
 
 import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.user.application.dto.CreateUserRequestDto;
+import mayfifth99.twitter.user.application.dto.GetUserResponseDto;
 import mayfifth99.twitter.user.application.interfaces.UserRepository;
 import mayfifth99.twitter.user.domain.User;
 import mayfifth99.twitter.user.domain.UserInfo;
@@ -22,4 +23,10 @@ public class UserService {
     public User getUser(Long userId){
         return userRepository.findById(userId).orElseThrow(IllegalArgumentException::new);
     }
+
+    public GetUserResponseDto getUserProfile(Long userId){
+        User user = getUser(userId);
+        return new GetUserResponseDto(user);
+    }
+
 }

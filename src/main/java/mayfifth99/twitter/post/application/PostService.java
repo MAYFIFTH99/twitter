@@ -29,16 +29,16 @@ public class PostService {
         return postRepository.findById(postId).orElseThrow(IllegalArgumentException::new);
     }
 
-    public void updatePost(UpdatePostRequestDto dto) {
-        Post post = getPost(dto.postId());
+    public void updatePost(Long postId, UpdatePostRequestDto dto) {
+        Post post = getPost(postId);
         User author = userService.getUser(dto.userId());
 
         post.updatePost(author, dto.content(), dto.state());
         postRepository.save(post);
     }
 
-    public void likePost(LikeRequestDto dto){
-        Post post = getPost(dto.targetId());
+    public void likePost(Long postId, LikeRequestDto dto){
+        Post post = getPost(postId);
         User user = userService.getUser(dto.userId());
 
         if (likeRepository.checkLike(post, user)) {
@@ -47,7 +47,6 @@ public class PostService {
 
         post.like(user);
         likeRepository.like(post, user);
-        postRepository.save(post);
     }
 
     public void unlikePost(LikeRequestDto dto){
@@ -57,7 +56,6 @@ public class PostService {
         if (likeRepository.checkLike(post, user)) {
             post.unlike(user);
             likeRepository.unlike(post, user);
-            postRepository.save(post);
         }
     }
 
