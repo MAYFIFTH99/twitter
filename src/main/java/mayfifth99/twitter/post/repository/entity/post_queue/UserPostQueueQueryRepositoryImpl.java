@@ -11,9 +11,8 @@ import mayfifth99.twitter.post.repository.entity.post.QPostEntity;
 import mayfifth99.twitter.post.repository.entity.post.QUserPostQueueEntity;
 import mayfifth99.twitter.post.ui.dto.GetPostContentDto;
 import mayfifth99.twitter.user.repository.entity.QUserEntity;
-import org.springframework.stereotype.Repository;
 
-@Repository
+//@Repository
 @RequiredArgsConstructor
 public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepository {
 

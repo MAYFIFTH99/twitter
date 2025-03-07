@@ -4,9 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mayfifth99.twitter.post.repository.entity.post.PostEntity;
-import mayfifth99.twitter.post.repository.entity.post.UserPostQueueEntity;
 import mayfifth99.twitter.post.repository.jpa.JpaPostRepository;
-import mayfifth99.twitter.post.repository.jpa.JpaUserPostQueueRepository;
 import mayfifth99.twitter.user.repository.entity.UserEntity;
 import mayfifth99.twitter.user.repository.jpa.JpaUserRelationRepository;
 import org.springframework.stereotype.Repository;
@@ -19,7 +17,7 @@ public class UserPostQueueCommandRepositoryImpl implements UserPostQueueCommandR
 
     private final JpaUserRelationRepository jpaUserRelationRepository;
     private final JpaPostRepository jpaPostRepository;
-    private final JpaUserPostQueueRepository jpaUserPostQueueRepository;
+    private final UserPostQueueRedisRepository redisRepository;
 
     @Override
     @Transactional
@@ -27,30 +25,19 @@ public class UserPostQueueCommandRepositoryImpl implements UserPostQueueCommandR
         UserEntity authorEntity = postEntity.getAuthor();
         // 나를 팔로우하는 사람들의 정보 필요
         List<Long> followersId = jpaUserRelationRepository.getFollowers(authorEntity.getId());
-
-        List<UserPostQueueEntity> userPostQueueEntityList = followersId.stream()
-                .map(followerId -> new UserPostQueueEntity(followerId, postEntity.getId(),
-                        authorEntity.getId()))
-                .toList();
-
-        jpaUserPostQueueRepository.saveAll(userPostQueueEntityList);
+        redisRepository.publishPostToFollowerUsers(postEntity, followersId);
     }
 
     @Override
     @Transactional
     public void saveFollowPost(Long userId, Long targetId) {
-        List<PostEntity> postEntityList = jpaPostRepository.findAllByAuthorId(targetId);
+        List<PostEntity> postEntities = jpaPostRepository.findAllByAuthorId(targetId);
+        redisRepository.publishPostListToFollowingUsers(postEntities, userId);
 
-        List<UserPostQueueEntity> userPostQueueEntityList = postEntityList.stream()
-                .map(postEntity -> new UserPostQueueEntity(userId, postEntity.getId(), targetId))
-                .toList();
-
-        jpaUserPostQueueRepository.saveAll(userPostQueueEntityList);
     }
 
     @Override
     @Transactional
     public void deleteUnfollowPost(Long userId, Long targetId) {
-        jpaUserPostQueueRepository.deleteAllByUserIdAndAuthorId(userId, targetId);
     }
 }
