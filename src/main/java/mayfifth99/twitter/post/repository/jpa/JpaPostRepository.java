@@ -1,5 +1,6 @@
 package mayfifth99.twitter.post.repository.jpa;
 
+import java.util.List;
 import mayfifth99.twitter.post.repository.entity.post.PostEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -28,4 +29,6 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long> {
             + "p.updDt = now() "
             + "WHERE p.id = :id")
     void increaseCommentCount(Long id);
+
+    List<PostEntity> findAllByAuthorId(Long targetId);
 }
