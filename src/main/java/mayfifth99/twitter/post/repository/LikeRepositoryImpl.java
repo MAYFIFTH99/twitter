@@ -43,8 +43,7 @@ public class LikeRepositoryImpl implements LikeRepository {
     public void like(Post post, User user) {
         LikeEntity likeEntity = new LikeEntity(post, user);
         em.persist(likeEntity);
-        jpaLikeRepository.save(likeEntity);
-        jpaPostRepository.updateLikeCount(post.getId(), 1);
+        jpaPostRepository.updateLikeCount(post.getId(), 1); // PostEntity를 매개변수로 전달하면 갱신 유실 발생(동시성)
     }
 
     @Transactional
@@ -65,7 +64,7 @@ public class LikeRepositoryImpl implements LikeRepository {
     @Override
     public void like(Comment comment, User user) {
         LikeEntity likeEntity = new LikeEntity(comment, user);
-        jpaLikeRepository.save(likeEntity);
+        em.persist(likeEntity);
         jpaCommentRepository.updateLikeCount(comment.getId(), 1);
     }
 
