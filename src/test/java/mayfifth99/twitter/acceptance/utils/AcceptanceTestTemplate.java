@@ -1,5 +1,8 @@
 package mayfifth99.twitter.acceptance.utils;
 
+import static mayfifth99.twitter.acceptance.steps.LoginAcceptanceSteps.reqLoginGetToken;
+
+import mayfifth99.twitter.auth.application.dto.LoginRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,6 +42,10 @@ public class AcceptanceTestTemplate {
 
     protected void createUser(String email){
         dataLoader.createUser(email);
+    }
+
+    protected String login(String email){
+        return reqLoginGetToken(new LoginRequestDto(email, "password"));
     }
 
 }
