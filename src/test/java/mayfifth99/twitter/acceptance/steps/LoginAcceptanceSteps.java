@@ -26,7 +26,7 @@ public class LoginAcceptanceSteps {
                 .getObject("value", UserAccessTokenResponseDto.class);
     }
 
-    public static Integer reqLoginGetResponseCode (LoginRequestDto dto){
+    public static Integer reqLoginGetResponseCode(LoginRequestDto dto){
         return RestAssured
                 .given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

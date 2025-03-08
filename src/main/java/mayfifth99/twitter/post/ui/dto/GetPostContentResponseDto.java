@@ -10,11 +10,11 @@ import mayfifth99.twitter.post.repository.entity.post.PostEntity;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetPostContentDto extends GetContentResponseDto{
+public class GetPostContentResponseDto extends GetContentResponseDto{
     private int commentCount;
 
-    public static GetPostContentDto from(PostEntity postEntity) {
-        return GetPostContentDto.builder()
+    public static GetPostContentResponseDto from(PostEntity postEntity) {
+        return GetPostContentResponseDto.builder()
                 .id(postEntity.getId())
                 .userId(postEntity.getAuthor().getId())
                 .userName(postEntity.getAuthor().getName())

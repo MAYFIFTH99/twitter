@@ -14,10 +14,10 @@ spring:
         highlight_sql: true
         default_batch_fetch_size: 1000 #최적화 옵션
     open-in-view: false #OSIV 를 true로 설정하면, request가 반환될 때 까지 커넥션을 보유
-  data:
-    redis:
-      host: localhost
-      port: 6379
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
 
 logging.level:
   org.hibernate.SQL: debug # 이거 끄면 format_sql 적용 안됨

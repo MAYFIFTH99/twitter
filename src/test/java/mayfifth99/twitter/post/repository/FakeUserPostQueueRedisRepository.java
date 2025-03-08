@@ -8,7 +8,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.post.repository.entity.post.PostEntity;
 import mayfifth99.twitter.post.repository.entity.post_queue.UserPostQueueRedisRepository;
-import mayfifth99.twitter.post.ui.dto.GetPostContentDto;
+import mayfifth99.twitter.post.ui.dto.GetPostContentResponseDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -47,7 +47,7 @@ public class FakeUserPostQueueRedisRepository implements UserPostQueueRedisRepos
     }
 
     @Override
-    public List<GetPostContentDto> getContentResponse(Long userId, Long lastPostId) {
+    public List<GetPostContentResponseDto> getContentResponse(Long userId, Long lastPostId) {
         Set<PostEntity> postEntities = queue.get(userId);
 
         if(postEntities == null) {
@@ -59,7 +59,7 @@ public class FakeUserPostQueueRedisRepository implements UserPostQueueRedisRepos
                 .toList();
 
         return pagedPosts.stream()
-                .map(GetPostContentDto::from)
+                .map(GetPostContentResponseDto::from)
                 .toList();
     }
 

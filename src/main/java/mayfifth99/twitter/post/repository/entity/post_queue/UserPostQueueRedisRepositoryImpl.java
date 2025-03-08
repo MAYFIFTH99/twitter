@@ -3,7 +3,7 @@ package mayfifth99.twitter.post.repository.entity.post_queue;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.post.repository.entity.post.PostEntity;
-import mayfifth99.twitter.post.ui.dto.GetPostContentDto;
+import mayfifth99.twitter.post.ui.dto.GetPostContentResponseDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +29,7 @@ public class UserPostQueueRedisRepositoryImpl implements UserPostQueueRedisRepos
     }
 
     @Override
-    public List<GetPostContentDto> getContentResponse(Long userId, Long lastPostId) {
+    public List<GetPostContentResponseDto> getContentResponse(Long userId, Long lastPostId) {
         return List.of();
     }
 }
