@@ -20,6 +20,10 @@ public class Password {
         return new Password(encryptedPassword);
     }
 
+    public static Password createPassword(String encryptedPassword){
+        return new Password(encryptedPassword);
+    }
+
     public boolean matchPassword(String password){
         return encryptedPassword.matches(SHA256.encrypt(password));
     }

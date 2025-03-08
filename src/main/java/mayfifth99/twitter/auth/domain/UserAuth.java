@@ -16,7 +16,7 @@ public class UserAuth {
 
     public UserAuth(String email, String password, UserRole userRole) {
         this.email = new EmailVerification(email);
-        this.password = Password.createEncryptPassword(password);
+        this.password = Password.createPassword(password);
         this.userRole = userRole;
     }
 
@@ -27,4 +27,7 @@ public class UserAuth {
         this.userId = userId;
     }
 
+    public boolean matchPassword(String password) {
+        return this.password.matchPassword(password);
+    }
 }

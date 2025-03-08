@@ -21,7 +21,7 @@ public class DataLoader {
 
     public void loadData(){
         for (int i = 1; i <= 3; i++) {
-            createUser("test" + i + "@test.com");
+            createUser("user" + i + "@test.com");
         }
 
         followUser(new FollowUserRequestDto(1L, 2L));

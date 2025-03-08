@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 class LoginAcceptanceTest extends AcceptanceTestTemplate {
 
-    private final String email = "test@email.com";
+    private final String email = "email@email.com";
 
     @BeforeEach
     void setUp() {
@@ -33,7 +33,7 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
     }
 
     @Test
-    void givenEmailAndWrongPassword_whenLogin_thenReturnCodeNotZero() throws Exception {
+    void givenEmailAndWrongPassword_whenLogin_thenReturnCodeNot200() throws Exception {
         //given
         LoginRequestDto dto = new LoginRequestDto(email, "wrong password");
 
@@ -41,6 +41,6 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
         Integer code = reqLoginGetResponseCode(dto);
 
         //then
-        assertEquals(code, 400);
+        assertEquals(400, code);
     }
 }
