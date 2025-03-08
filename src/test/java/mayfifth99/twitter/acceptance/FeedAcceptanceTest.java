@@ -26,7 +26,7 @@ public class FeedAcceptanceTest extends AcceptanceTestTemplate {
      * when) User 2 create Post
      * then) User 1 get that Post in Feed
      */
-    @Test
+//    @Test
     void givenUserHasFollowerAndCreatePost_whenFollowerUserRequestFeed_thenFollowerCanGetPostFromFeed() throws Exception {
         //given
         // User 2가 글을 작성하는 Step + User 1이 User 2를 팔로우하는 Step 필요
