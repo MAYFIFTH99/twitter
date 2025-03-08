@@ -28,7 +28,7 @@ public class DatabaseCleanUp implements InitializingBean {
                 .map(entity -> entity.getJavaType().getAnnotation(Table.class).name())
                 .toList();
 
-        notGeneratedIdTableNames = List.of("community_user_relation", "community_like");
+        notGeneratedIdTableNames = List.of("community_user_relation", "community_like","community_user_auth");
     }
 
     @Transactional
@@ -36,6 +36,7 @@ public class DatabaseCleanUp implements InitializingBean {
         em.flush();
         em.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate();
         for (String tableName : tableNames) {
+            em.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
             if (!notGeneratedIdTableNames.contains(tableName)) {
                 em.createNativeQuery("ALTER TABLE " + tableName + " ALTER COLUMN id RESTART WITH 1")
                         .executeUpdate();

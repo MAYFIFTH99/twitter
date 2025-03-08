@@ -9,10 +9,13 @@ import mayfifth99.twitter.post.repository.entity.like.LikeTarget;
 import mayfifth99.twitter.post.repository.entity.like.QLikeEntity;
 import mayfifth99.twitter.post.repository.entity.post.QPostEntity;
 import mayfifth99.twitter.post.repository.entity.post.QUserPostQueueEntity;
-import mayfifth99.twitter.post.ui.dto.GetPostContentDto;
+import mayfifth99.twitter.post.ui.dto.GetPostContentResponseDto;
 import mayfifth99.twitter.user.repository.entity.QUserEntity;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
+@Profile({"!test"})
 @RequiredArgsConstructor
 public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepository {
 
@@ -25,11 +28,11 @@ public class UserPostQueueQueryRepositoryImpl implements UserPostQueueQueryRepos
 
 
     @Override
-    public List<GetPostContentDto> getContentResponse(Long userId, Long lastPostId) {
+    public List<GetPostContentResponseDto> getContentResponse(Long userId, Long lastPostId) {
         //userId의 PostQueue를 가져와서 반환해주는 메서드
         return queryFactory
                 .select(Projections.fields(
-                        GetPostContentDto.class,
+                        GetPostContentResponseDto.class,
                         post.id.as("id"),
                         post.content.as("content"),
                         user.name.as("userName"),

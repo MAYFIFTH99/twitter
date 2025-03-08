@@ -2,11 +2,12 @@ package mayfifth99.twitter.post.ui.controller;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import mayfifth99.twitter.common.principal.AuthPrincipal;
+import mayfifth99.twitter.common.principal.UserPrincipal;
 import mayfifth99.twitter.common.ui.Response;
 import mayfifth99.twitter.post.repository.entity.post_queue.UserPostQueueQueryRepository;
-import mayfifth99.twitter.post.ui.dto.GetPostContentDto;
+import mayfifth99.twitter.post.ui.dto.GetPostContentResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +19,9 @@ public class FeedController {
 
     private final UserPostQueueQueryRepository userPostQueueQueryRepository;
 
-    @GetMapping("/{userId}")
-    public Response<List<GetPostContentDto>> getPostContent(@PathVariable Long userId,
+    @GetMapping
+    public Response<List<GetPostContentResponseDto>> getPostContent(@AuthPrincipal UserPrincipal userPrincipal,
             @RequestParam(required = false) Long lastPostId) {
-        return Response.ok(userPostQueueQueryRepository.getContentResponse(userId, lastPostId));
+        return Response.ok(userPostQueueQueryRepository.getContentResponse(userPrincipal.getUserId(), lastPostId));
     }
 }

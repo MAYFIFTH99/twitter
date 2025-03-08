@@ -4,7 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.post.repository.entity.post.PostEntity;
 import mayfifth99.twitter.post.repository.entity.post_queue.UserPostQueueQueryRepository;
-import mayfifth99.twitter.post.ui.dto.GetPostContentDto;
+import mayfifth99.twitter.post.ui.dto.GetPostContentResponseDto;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
@@ -16,12 +16,12 @@ public class FakeUserPostQueueQueryRepository implements UserPostQueueQueryRepos
     private final FakeUserPostQueueRedisRepository fakeRedisRepository;
 
     @Override
-    public List<GetPostContentDto> getContentResponse(Long userId, Long lastPostId) {
+    public List<GetPostContentResponseDto> getContentResponse(Long userId, Long lastPostId) {
         List<PostEntity> postEntities = fakeRedisRepository.getPostsByUserId(userId);
 
-        List<GetPostContentDto> result = new ArrayList<>();
+        List<GetPostContentResponseDto> result = new ArrayList<>();
         for (PostEntity postEntity : postEntities) {
-            GetPostContentDto res = GetPostContentDto.builder()
+            GetPostContentResponseDto res = GetPostContentResponseDto.builder()
                     .id(postEntity.getId())
                     .build();
             result.add(res);
