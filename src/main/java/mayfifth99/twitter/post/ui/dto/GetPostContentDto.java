@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import mayfifth99.twitter.post.repository.entity.post.PostEntity;
 
 @SuperBuilder // 부모 클래스의 생성자를 모두 포함한 생성자를 만들어주는 어노테이션
 @Getter
@@ -12,4 +13,13 @@ import lombok.experimental.SuperBuilder;
 public class GetPostContentDto extends GetContentResponseDto{
     private int commentCount;
 
+    public static GetPostContentDto from(PostEntity postEntity) {
+        return GetPostContentDto.builder()
+                .id(postEntity.getId())
+                .userId(postEntity.getAuthor().getId())
+                .userName(postEntity.getAuthor().getName())
+                .content(postEntity.getContent())
+                .commentCount(postEntity.getCommentCount())
+                .build();
+    }
 }

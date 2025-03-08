@@ -22,4 +22,19 @@ public class AcceptanceTestTemplate {
         dataLoader.loadData();
     }
 
+    protected void cleanUp(){
+        cleanUp.execute();
+    }
+    protected String getEmailToken(String email){
+        return dataLoader.getEmailToken(email);
+    }
+
+    protected boolean isEmailVerified(String email){
+        return dataLoader.isEmailVerified(email);
+    }
+
+    protected Long getUserId(String email){
+        return dataLoader.getUserId(email);
+    }
+
 }

@@ -1,20 +1,15 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   jpa:
+    show-sql: true
+    generate-ddl: true
     hibernate:
       ddl-auto: create-drop
-    properties:
-      hibernate:
-        #        show_sql: true
-        format_sql: true
-        highlight_sql: true
-        default_batch_fetch_size: 1000 #최적화 옵션
-    open-in-view: false #OSIV 를 true로 설정하면, request가 반환될 때 까지 커넥션을 보유
-
-logging.level:
-  org.hibernate.SQL: debug # 이거 끄면 format_sql 적용 안됨
-#  org.hibernate.type: trace
