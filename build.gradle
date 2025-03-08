@@ -54,8 +54,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    //atdd rest-assured
+    //ATDD rest-assured
     testImplementation("io.rest-assured:rest-assured:5.5.0")
+
+    //jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    implementation 'io.jsonwebtoken:jjwt-json:0.12.6'
+
 
     //test lombok
     testCompileOnly 'org.projectlombok:lombok'
