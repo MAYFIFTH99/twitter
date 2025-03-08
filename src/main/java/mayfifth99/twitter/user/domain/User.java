@@ -24,6 +24,10 @@ public class User {
         this.followerCounter = new PositiveIntegerCounter();
     }
 
+    public User(String name, String imageUrl) {
+        this(null, new UserInfo(name, imageUrl));
+    }
+
     public void follow(User targetUser){
         if(this.equals(targetUser)){
             throw new IllegalArgumentException("자기 자신을 팔로우할 수 없습니다.");
