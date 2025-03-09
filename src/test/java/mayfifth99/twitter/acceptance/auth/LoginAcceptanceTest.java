@@ -1,7 +1,7 @@
 package mayfifth99.twitter.acceptance.auth;
 
-import static mayfifth99.twitter.acceptance.steps.LoginAcceptanceSteps.reqLoginGetResponseCode;
-import static mayfifth99.twitter.acceptance.steps.LoginAcceptanceSteps.reqLoginGetToken;
+import static mayfifth99.twitter.acceptance.steps.LoginAcceptanceSteps.requestLoginGetResponseCode;
+import static mayfifth99.twitter.acceptance.steps.LoginAcceptanceSteps.requestLoginGetToken;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -26,7 +26,7 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
         LoginRequestDto dto = new LoginRequestDto(email, "password");
 
         //when
-        String token = reqLoginGetToken(dto);
+        String token = requestLoginGetToken(dto);
 
         //then
         assertNotNull(token);
@@ -38,7 +38,7 @@ class LoginAcceptanceTest extends AcceptanceTestTemplate {
         LoginRequestDto dto = new LoginRequestDto(email, "wrong password");
 
         //when
-        Integer code = reqLoginGetResponseCode(dto);
+        Integer code = requestLoginGetResponseCode(dto);
 
         //then
         assertEquals(400, code);

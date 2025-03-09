@@ -1,8 +1,8 @@
 package mayfifth99.twitter.acceptance;
 
-import static mayfifth99.twitter.acceptance.steps.FeedAcceptanceSteps.reqCreatePost;
-import static mayfifth99.twitter.acceptance.steps.FeedAcceptanceSteps.reqFeedCode;
-import static mayfifth99.twitter.acceptance.steps.FeedAcceptanceSteps.reqFeedList;
+import static mayfifth99.twitter.acceptance.steps.FeedAcceptanceSteps.requestCreatePost;
+import static mayfifth99.twitter.acceptance.steps.FeedAcceptanceSteps.requestFeedCode;
+import static mayfifth99.twitter.acceptance.steps.FeedAcceptanceSteps.requestFeedList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -34,10 +34,10 @@ public class FeedAcceptanceTest extends AcceptanceTestTemplate {
     void givenUserHasFollowerWhenCreatePostThenFollowerFeedCanGetPost() {
         // given
         CreatePostRequestDto dto = new CreatePostRequestDto(2L, "1 content", PostPublicationState.PUBLIC);
-        Long createdPostId = reqCreatePost(dto);
+        Long createdPostId = requestCreatePost(dto);
 
         // when, 팔로워의 피드 요청
-        List<GetPostContentResponseDto> result = reqFeedList(this.token);
+        List<GetPostContentResponseDto> result = requestFeedList(this.token);
 
         // then
         assertEquals(1, result.size());
@@ -47,7 +47,7 @@ public class FeedAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenUserHasFollowerAndCreatePostWhenGetPostThenReturnPostWithInvalidToken() {
         // when, 팔로워의 피드 요청
-        Integer resultCode = reqFeedCode("invalid token");
+        Integer resultCode = requestFeedCode("invalid token");
 
         // then
         assertEquals(400, resultCode);

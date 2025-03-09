@@ -7,26 +7,26 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class EmailVerificationTest {
+class EmailTest {
 
     @ParameterizedTest
     @NullAndEmptySource
     void givenNullOrEmptyEmail_whenEmailCreated_thenThrowIllegalArgumentException(String email) {
-        assertThrows(IllegalArgumentException.class, () -> new EmailVerification(email));
+        assertThrows(IllegalArgumentException.class, () -> new Email(email));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"invalid email", "invalid@.com", "invalid.com", "invalid@com"})
     void givenInvalidEmail_whenEmailCreated_thenThrowIllegalArgumentException(String email) {
-        assertThrows(IllegalArgumentException.class, () -> new EmailVerification(email));
+        assertThrows(IllegalArgumentException.class, () -> new Email(email));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"valid@vaild.com", "alstjr971@naver.com"})
     void givenValidEmail_whenEmailCreated_thenSuccess(String email) {
-        EmailVerification emailVerificationText = new EmailVerification(email);
+        Email emailText = new Email(email);
 
-        String savedEmailText = emailVerificationText.getEmailText();
+        String savedEmailText = emailText.getEmailText();
 
         assertThat(savedEmailText).isEqualTo(email);
     }

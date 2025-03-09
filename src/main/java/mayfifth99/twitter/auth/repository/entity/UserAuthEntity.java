@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import mayfifth99.twitter.auth.domain.EmailVerification;
+import mayfifth99.twitter.auth.domain.Email;
 import mayfifth99.twitter.auth.domain.Password;
 import mayfifth99.twitter.auth.domain.UserAuth;
 import mayfifth99.twitter.auth.domain.UserRole;
@@ -37,7 +37,7 @@ public class UserAuthEntity extends TimeBaseEntity{
 
     public UserAuth toUserAuth() {
         return UserAuth.builder()
-                .email(new EmailVerification(email))
+                .email(new Email(email))
                 .password(Password.createEncryptPassword(password))
                 .userRole(userRole)
                 .userId(userId)

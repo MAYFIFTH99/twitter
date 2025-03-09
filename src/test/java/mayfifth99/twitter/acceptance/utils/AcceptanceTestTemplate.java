@@ -1,6 +1,7 @@
 package mayfifth99.twitter.acceptance.utils;
 
-import static mayfifth99.twitter.acceptance.steps.LoginAcceptanceSteps.reqLoginGetToken;
+
+import static mayfifth99.twitter.acceptance.steps.LoginAcceptanceSteps.requestLoginGetToken;
 
 import mayfifth99.twitter.auth.application.dto.LoginRequestDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ public class AcceptanceTestTemplate {
     }
 
     protected String login(String email){
-        return reqLoginGetToken(new LoginRequestDto(email, "password"));
+        return requestLoginGetToken(new LoginRequestDto(email, "password"));
     }
 
 }

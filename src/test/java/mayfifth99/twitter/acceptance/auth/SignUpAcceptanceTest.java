@@ -1,8 +1,8 @@
 package mayfifth99.twitter.acceptance.auth;
 
-import static mayfifth99.twitter.acceptance.steps.SingUpAcceptanceSteps.registerUser;
-import static mayfifth99.twitter.acceptance.steps.SingUpAcceptanceSteps.reqSendEmail;
-import static mayfifth99.twitter.acceptance.steps.SingUpAcceptanceSteps.reqVerifyEmail;
+import static mayfifth99.twitter.acceptance.steps.SignUpAcceptanceSteps.registerUser;
+import static mayfifth99.twitter.acceptance.steps.SignUpAcceptanceSteps.requestSendEmail;
+import static mayfifth99.twitter.acceptance.steps.SignUpAcceptanceSteps.requestVerifyEmail;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -31,7 +31,7 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
         SendEmailRequestDto dto = new SendEmailRequestDto(email);
 
         //when
-        Integer code = reqSendEmail(dto);
+        Integer code = requestSendEmail(dto);
 
         //then
         String token = getEmailToken(email);
@@ -45,7 +45,7 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
         SendEmailRequestDto dto = new SendEmailRequestDto("invalid email");
 
         //when
-        Integer code = reqSendEmail(dto);
+        Integer code = requestSendEmail(dto);
 
         //then
 
@@ -55,11 +55,11 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenSendEmail_whenVerifyEmail_thenEmailVerified() {
         // given
-        reqSendEmail(new SendEmailRequestDto(email));
+        requestSendEmail(new SendEmailRequestDto(email));
 
         // when
         String token = getEmailToken(email);
-        Integer code = reqVerifyEmail(email, token);
+        Integer code = requestVerifyEmail(email, token);
 
         // then
         boolean isEmailVerified = isEmailVerified(email);
@@ -70,10 +70,10 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenSendEmail_whenVerifyEmailWithWrongToken_thenEmailNotVerified() {
         // given
-        reqSendEmail(new SendEmailRequestDto(email));
+        requestSendEmail(new SendEmailRequestDto(email));
 
         // when
-        Integer code = reqVerifyEmail(email, "wrong token");
+        Integer code = requestVerifyEmail(email, "wrong token");
 
         // then
         boolean isEmailVerified = isEmailVerified(email);
@@ -84,12 +84,12 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenSendEmailVerified_whenVerifyAgain_thenThrowError() {
         // given
-        reqSendEmail(new SendEmailRequestDto(email));
+        requestSendEmail(new SendEmailRequestDto(email));
         String token = getEmailToken(email);
-        reqVerifyEmail(email, token);
+        requestVerifyEmail(email, token);
 
         // when
-        Integer code = reqVerifyEmail(email, token);
+        Integer code = requestVerifyEmail(email, token);
 
         // then
         assertEquals(500, code);
@@ -98,10 +98,10 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenSendEmail_whenVerifyEmailWithWrongEmail_thenThrowError() {
         // given
-        reqSendEmail(new SendEmailRequestDto(email));
+        requestSendEmail(new SendEmailRequestDto(email));
 
         // when
-        Integer code = reqVerifyEmail("wrong email", "token");
+        Integer code = requestVerifyEmail("wrong email", "token");
 
         // then
         assertEquals(400, code);
@@ -110,9 +110,9 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenVerifiedEmail_whenRegister_thenUserRegistered() {
         // given
-        reqSendEmail(new SendEmailRequestDto(email));
+        requestSendEmail(new SendEmailRequestDto(email));
         String token = getEmailToken(email);
-        reqVerifyEmail(email, token);
+        requestVerifyEmail(email, token);
 
         // when
         CreateUserAuthRequestDto dto = new CreateUserAuthRequestDto(email, "password", UserRole.USER, "name", "imageUrl");
@@ -127,7 +127,7 @@ class SignUpAcceptanceTest extends AcceptanceTestTemplate {
     @Test
     void givenUnverifiedEmail_whenRegister_thenThrowError() {
         // given
-        reqSendEmail(new SendEmailRequestDto(email));
+        requestSendEmail(new SendEmailRequestDto(email));
 
         // when
         CreateUserAuthRequestDto dto = new CreateUserAuthRequestDto("email", "password", UserRole.USER, "name", "imageUrl");

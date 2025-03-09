@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 
 public class FeedAcceptanceSteps {
 
-    public static Long reqCreatePost(CreatePostRequestDto dto) {
+    public static Long requestCreatePost(CreatePostRequestDto dto) {
         return RestAssured
                 .given().log().all()
                 .body(dto)
@@ -21,7 +21,7 @@ public class FeedAcceptanceSteps {
                 .getObject("value", Long.class);
     }
 
-    public static List<GetPostContentResponseDto> reqFeedList(String token){
+    public static List<GetPostContentResponseDto> requestFeedList(String token){
         return RestAssured
                 .given().log().all()
                 .accept(MediaType.APPLICATION_JSON_VALUE)
@@ -34,7 +34,7 @@ public class FeedAcceptanceSteps {
                 .getList("value", GetPostContentResponseDto.class);
     }
 
-    public static Integer reqFeedCode(String token) {
+    public static Integer requestFeedCode(String token) {
         return RestAssured
                 .given().log().all()
                 .accept(MediaType.APPLICATION_JSON_VALUE)

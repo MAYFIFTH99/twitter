@@ -1,7 +1,7 @@
 package mayfifth99.twitter.auth.ui;
 
 import lombok.RequiredArgsConstructor;
-import mayfifth99.twitter.auth.application.AuthService;
+import mayfifth99.twitter.auth.application.UserAuthService;
 import mayfifth99.twitter.auth.application.EmailVerificationService;
 import mayfifth99.twitter.auth.application.dto.CreateUserAuthRequestDto;
 import mayfifth99.twitter.auth.application.dto.SendEmailRequestDto;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SignUpController {
 
     private final EmailVerificationService emailVerificationService;
-    private final AuthService authService;
+    private final UserAuthService userAuthService;
 
 
     @PostMapping("/send-verification-email")
@@ -36,6 +36,6 @@ public class SignUpController {
 
     @PostMapping("/register")
     public Response<Long> register(@RequestBody CreateUserAuthRequestDto dto){
-        return Response.ok(authService.registerUser(dto));
+        return Response.ok(userAuthService.registerUser(dto));
     }
 }

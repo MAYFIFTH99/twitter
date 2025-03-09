@@ -1,8 +1,8 @@
 package mayfifth99.twitter.auth.repository.interfaces;
 
-import mayfifth99.twitter.auth.domain.EmailVerification;
+import mayfifth99.twitter.auth.domain.Email;
 
 public interface EmailSendRepository {
-    void sendEmail(EmailVerification email, String token);
+    void sendEmail(Email email, String token);
 
 }
