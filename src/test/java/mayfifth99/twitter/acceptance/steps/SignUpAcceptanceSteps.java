@@ -5,9 +5,9 @@ import mayfifth99.twitter.auth.application.dto.CreateUserAuthRequestDto;
 import mayfifth99.twitter.auth.application.dto.SendEmailRequestDto;
 import org.springframework.http.MediaType;
 
-public class SingUpAcceptanceSteps {
+public class SignUpAcceptanceSteps {
 
-    public static Integer reqSendEmail(SendEmailRequestDto dto){
+    public static Integer requestSendEmail(SendEmailRequestDto dto){
         return RestAssured
                 .given().log().all()
                 .body(dto)
@@ -19,7 +19,7 @@ public class SingUpAcceptanceSteps {
                 .jsonPath().get("code");
     }
 
-    public static Integer reqVerifyEmail(String email, String token){
+    public static Integer requestVerifyEmail(String email, String token){
         return RestAssured
                 .given().log().all()
                 .queryParam("email", email)

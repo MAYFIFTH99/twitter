@@ -4,14 +4,14 @@ import java.util.regex.Pattern;
 import lombok.Getter;
 
 @Getter
-public class EmailVerification {
+public class Email {
     private final static String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
     private final static Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 
 
     private final String emailText;
 
-    public EmailVerification(String emailText) {
+    public Email(String emailText) {
         if (emailText == null || emailText.isBlank()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
         }

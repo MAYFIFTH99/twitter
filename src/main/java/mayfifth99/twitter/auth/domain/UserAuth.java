@@ -8,20 +8,20 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class UserAuth {
-    private final EmailVerification email;
+    private final Email email;
     private final Password password;
     private final UserRole userRole;
     private Long userId;
 
 
     public UserAuth(String email, String password, UserRole userRole) {
-        this.email = new EmailVerification(email);
+        this.email = new Email(email);
         this.password = Password.createPassword(password);
         this.userRole = userRole;
     }
 
     public UserAuth(String email, String password, UserRole userRole, Long userId) {
-        this.email = new EmailVerification(email);
+        this.email = new Email(email);
         this.password = Password.createEncryptPassword(password);
         this.userRole = userRole;
         this.userId = userId;

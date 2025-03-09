@@ -2,7 +2,7 @@ package mayfifth99.twitter.auth.application;
 
 import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.auth.application.dto.SendEmailRequestDto;
-import mayfifth99.twitter.auth.domain.EmailVerification;
+import mayfifth99.twitter.auth.domain.Email;
 import mayfifth99.twitter.auth.domain.TokenGenerator;
 import mayfifth99.twitter.auth.repository.interfaces.EmailSendRepository;
 import mayfifth99.twitter.auth.repository.interfaces.EmailVerificationRepository;
@@ -16,15 +16,15 @@ public class EmailVerificationService {
     private final EmailSendRepository emailSendRepository;
 
     public void sendEmail(SendEmailRequestDto dto){
-        EmailVerification emailVerificationDomain = new EmailVerification(dto.email());
+        Email emailDomain = new Email(dto.email());
         String token = TokenGenerator.generateToken();
 
-        emailSendRepository.sendEmail(emailVerificationDomain, token);
-        emailVerificationRepository.createEmailVerification(emailVerificationDomain, token);
+        emailSendRepository.sendEmail(emailDomain, token);
+        emailVerificationRepository.createEmailVerification(emailDomain, token);
     }
 
     public void verifyEmail(String email, String token){
-        EmailVerification emailVerification = new EmailVerification(email);
+        Email emailVerification = new Email(email);
         emailVerificationRepository.verifyEmail(emailVerification, token);
     }
 }

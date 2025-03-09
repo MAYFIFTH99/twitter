@@ -1,8 +1,8 @@
 package mayfifth99.twitter.acceptance.utils;
 
-import static mayfifth99.twitter.acceptance.steps.SingUpAcceptanceSteps.registerUser;
-import static mayfifth99.twitter.acceptance.steps.SingUpAcceptanceSteps.reqSendEmail;
-import static mayfifth99.twitter.acceptance.steps.SingUpAcceptanceSteps.reqVerifyEmail;
+import static mayfifth99.twitter.acceptance.steps.SignUpAcceptanceSteps.registerUser;
+import static mayfifth99.twitter.acceptance.steps.SignUpAcceptanceSteps.requestSendEmail;
+import static mayfifth99.twitter.acceptance.steps.SignUpAcceptanceSteps.requestVerifyEmail;
 import static mayfifth99.twitter.acceptance.steps.UserAcceptanceSteps.followUser;
 
 import jakarta.persistence.EntityManager;
@@ -48,9 +48,9 @@ public class DataLoader {
     }
 
     public void createUser(String email){
-        reqSendEmail(new SendEmailRequestDto(email));
+        requestSendEmail(new SendEmailRequestDto(email));
         String token = getEmailToken(email);
-        reqVerifyEmail(email, token);
+        requestVerifyEmail(email, token);
         registerUser(new CreateUserAuthRequestDto(email, "password", UserRole.USER, "name", ""));
     }
 

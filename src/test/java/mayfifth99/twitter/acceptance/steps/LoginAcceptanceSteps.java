@@ -7,13 +7,7 @@ import org.springframework.http.MediaType;
 
 public class LoginAcceptanceSteps {
 
-    public static String reqLoginGetToken(LoginRequestDto dto){
-        UserAccessTokenResponseDto res = getLoginResponse(dto);
-        return res.accessToken();
-    }
-
-
-    private static UserAccessTokenResponseDto getLoginResponse (LoginRequestDto dto){
+    public static String requestLoginGetToken(LoginRequestDto dto){
         return RestAssured
                 .given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -23,10 +17,11 @@ public class LoginAcceptanceSteps {
                 .then()
                 .extract()
                 .jsonPath()
-                .getObject("value", UserAccessTokenResponseDto.class);
+                .getObject("value", UserAccessTokenResponseDto.class)
+                .accessToken();
     }
 
-    public static Integer reqLoginGetResponseCode(LoginRequestDto dto){
+    public static Integer requestLoginGetResponseCode(LoginRequestDto dto){
         return RestAssured
                 .given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

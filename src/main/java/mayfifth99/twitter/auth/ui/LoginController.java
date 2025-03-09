@@ -1,7 +1,7 @@
 package mayfifth99.twitter.auth.ui;
 
 import lombok.RequiredArgsConstructor;
-import mayfifth99.twitter.auth.application.AuthService;
+import mayfifth99.twitter.auth.application.UserAuthService;
 import mayfifth99.twitter.auth.application.dto.LoginRequestDto;
 import mayfifth99.twitter.auth.application.dto.UserAccessTokenResponseDto;
 import mayfifth99.twitter.common.ui.Response;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-    private final AuthService authService;
+    private final UserAuthService userAuthService;
 
     @PostMapping
     public Response<UserAccessTokenResponseDto> login(@RequestBody LoginRequestDto dto) {
-        UserAccessTokenResponseDto token = authService.login(dto);
+        UserAccessTokenResponseDto token = userAuthService.login(dto);
         return Response.ok(token);
     }
 

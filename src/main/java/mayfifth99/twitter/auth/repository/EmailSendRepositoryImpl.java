@@ -1,6 +1,6 @@
 package mayfifth99.twitter.auth.repository;
 
-import mayfifth99.twitter.auth.domain.EmailVerification;
+import mayfifth99.twitter.auth.domain.Email;
 import mayfifth99.twitter.auth.repository.interfaces.EmailSendRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public class EmailSendRepositoryImpl implements EmailSendRepository {
 
     @Override
-    public void sendEmail(EmailVerification email, String token) {
+    public void sendEmail(Email email, String token) {
         //TODO
     }
 }

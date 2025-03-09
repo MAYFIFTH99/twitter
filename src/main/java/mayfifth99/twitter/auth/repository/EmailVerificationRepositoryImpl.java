@@ -2,7 +2,7 @@ package mayfifth99.twitter.auth.repository;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import mayfifth99.twitter.auth.domain.EmailVerification;
+import mayfifth99.twitter.auth.domain.Email;
 import mayfifth99.twitter.auth.repository.entity.EmailVerificationEntity;
 import mayfifth99.twitter.auth.repository.interfaces.EmailVerificationRepository;
 import mayfifth99.twitter.auth.repository.jpa.JpaEmailVerificationRepository;
@@ -18,8 +18,8 @@ public class EmailVerificationRepositoryImpl implements EmailVerificationReposit
 
     @Override
     @Transactional
-    public void createEmailVerification(EmailVerification emailVerification, String token) {
-        String emailAddress = emailVerification.getEmailText();
+    public void createEmailVerification(Email email, String token) {
+        String emailAddress = email.getEmailText();
 
         Optional<EmailVerificationEntity> emailEntity = jpaEmailVerificationRepository.findByEmail(
                 emailAddress);
@@ -42,7 +42,7 @@ public class EmailVerificationRepositoryImpl implements EmailVerificationReposit
 
     @Override
     @Transactional
-    public void verifyEmail(EmailVerification email, String token) {
+    public void verifyEmail(Email email, String token) {
         String emailText = email.getEmailText();
 
         EmailVerificationEntity emailVerificationEntity = jpaEmailVerificationRepository.findByEmail(
@@ -59,7 +59,7 @@ public class EmailVerificationRepositoryImpl implements EmailVerificationReposit
     }
 
     @Override
-    public boolean isEmailVerified(EmailVerification email) {
+    public boolean isEmailVerified(Email email) {
         String emailText = email.getEmailText();
 
         EmailVerificationEntity emailVerificationEntity = jpaEmailVerificationRepository.findByEmail(
