@@ -37,7 +37,6 @@ public class UserAuthEntity extends TimeBaseEntity{
 
     public UserAuth toUserAuth() {
         return UserAuth.builder()
-                .userId(userId)
                 .email(new EmailVerification(email))
                 .password(Password.createEncryptPassword(password))
                 .userRole(userRole)
