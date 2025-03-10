@@ -1,14 +1,16 @@
 package mayfifth99.twitter.auth.repository.entity;
 
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mayfifth99.twitter.auth.domain.UserAuth;
 import mayfifth99.twitter.auth.domain.UserRole;
+import mayfifth99.twitter.auth.domain.UserRoleConverter;
 import mayfifth99.twitter.common.repository.entity.TimeBaseEntity;
 
 @Entity
@@ -23,8 +25,14 @@ public class UserAuthEntity extends TimeBaseEntity{
     private String password;
     private Long userId;
 
-    @Enumerated
+    @Convert(converter = UserRoleConverter.class)
     private UserRole userRole;
+
+    private LocalDateTime lastLoginDt;
+
+    public void updateLastLoginDt() {
+        this.lastLoginDt = LocalDateTime.now();
+    }
 
     public UserAuthEntity(UserAuth userAuth, Long userId) {
         this.email = userAuth.getEmail().getEmailText();

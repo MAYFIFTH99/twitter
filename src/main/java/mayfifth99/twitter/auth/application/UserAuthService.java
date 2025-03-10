@@ -11,6 +11,7 @@ import mayfifth99.twitter.auth.repository.interfaces.EmailVerificationRepository
 import mayfifth99.twitter.auth.repository.interfaces.UserAuthRepository;
 import mayfifth99.twitter.user.domain.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +35,7 @@ public class UserAuthService {
         return savedUserAuth.getUserId();
     }
 
+    @Transactional
     public UserAccessTokenResponseDto login(LoginRequestDto dto){
         UserAuth userAuth = userAuthRepository.findByEmail(dto.email());
         if (!userAuth.matchPassword(dto.password())) {

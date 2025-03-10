@@ -28,6 +28,7 @@ public class UserAuthRepositoryImpl implements UserAuthRepository {
     @Override
     public UserAuth findByEmail(String email) {
         UserAuthEntity userAuthEntity = jpaUserAuthRepository.findByEmail(email).orElseThrow();
+        userAuthEntity.updateLastLoginDt();
         return userAuthEntity.toUserAuth();
     }
 }

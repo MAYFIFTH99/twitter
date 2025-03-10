@@ -4,9 +4,9 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import mayfifth99.twitter.admin.ui.dto.GetDailyRegisterUserResponseDto;
+import mayfifth99.twitter.admin.ui.dto.users.GetDailyRegisterUserResponseDto;
 import mayfifth99.twitter.admin.ui.query.UserStatsQueryRepository;
-import mayfifth99.twitter.common.TimeCalculator;
+import mayfifth99.twitter.common.utils.TimeCalculator;
 import mayfifth99.twitter.user.repository.entity.QUserEntity;
 import org.springframework.stereotype.Repository;
 
