@@ -1,6 +1,8 @@
 package mayfifth99.twitter.admin.ui;
 
 import lombok.RequiredArgsConstructor;
+import mayfifth99.twitter.admin.ui.dto.GetPostTableRequestDto;
+import mayfifth99.twitter.admin.ui.dto.GetPostTableResponseDto;
 import mayfifth99.twitter.admin.ui.dto.GetTableListResponse;
 import mayfifth99.twitter.admin.ui.dto.users.GetUserTableRequestDto;
 import mayfifth99.twitter.admin.ui.dto.users.GetUserTableResponseDto;
@@ -38,6 +40,20 @@ public class AdminController {
                 dto);
         modelAndView.addObject("requestDto", dto);
         modelAndView.addObject("userList", result.getTableData());
+        modelAndView.addObject("totalCount", result.getTotalCount());
+        return modelAndView;
+    }
+
+    @GetMapping("/posts")
+    public ModelAndView posts(GetPostTableRequestDto dto) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("posts");
+
+        GetTableListResponse<GetPostTableResponseDto> result = adminTableQueryRepository.getPostTableData(
+                dto);
+        modelAndView.addObject("requestDto", dto);
+        modelAndView.addObject("postList", result.getTableData());
         modelAndView.addObject("totalCount", result.getTotalCount());
         return modelAndView;
     }

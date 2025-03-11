@@ -5,11 +5,14 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import mayfifth99.twitter.admin.ui.dto.GetPostTableRequestDto;
+import mayfifth99.twitter.admin.ui.dto.GetPostTableResponseDto;
 import mayfifth99.twitter.admin.ui.dto.GetTableListResponse;
 import mayfifth99.twitter.admin.ui.dto.users.GetUserTableRequestDto;
 import mayfifth99.twitter.admin.ui.dto.users.GetUserTableResponseDto;
 import mayfifth99.twitter.admin.ui.query.AdminTableQueryRepository;
 import mayfifth99.twitter.auth.repository.entity.QUserAuthEntity;
+import mayfifth99.twitter.post.repository.entity.post.QPostEntity;
 import mayfifth99.twitter.user.repository.entity.QUserEntity;
 import org.springframework.stereotype.Repository;
 
@@ -18,8 +21,9 @@ import org.springframework.stereotype.Repository;
 public class AdminTableQueryRepositoryImpl implements AdminTableQueryRepository {
 
     private final JPAQueryFactory queryFactory;
-    QUserAuthEntity userAuthEntity = QUserAuthEntity.userAuthEntity;
-    QUserEntity userEntity = QUserEntity.userEntity;
+    private final QUserAuthEntity userAuthEntity = QUserAuthEntity.userAuthEntity;
+    private final QUserEntity userEntity = QUserEntity.userEntity;
+    private final QPostEntity postEntity = QPostEntity.postEntity;
 
     // 50만개의 사용자 데이터가 있을 때, 3초 -> 1초로 성능 개선
     @Override // 이름으로 사용자 목록 조회
@@ -91,6 +95,55 @@ public class AdminTableQueryRepositoryImpl implements AdminTableQueryRepository 
 //                .fetch();
 //
 //        return new GetTableListResponse<>(total,result);
+    }
+
+    @Override
+    public GetTableListResponse<GetPostTableResponseDto> getPostTableData(
+            GetPostTableRequestDto dto) {
+
+        int total = queryFactory
+                .select(postEntity.id)
+                .from(postEntity)
+                .where(eqPostId(dto.getPostId()))
+                .fetch()
+                .size();
+
+        List<Long> ids = queryFactory
+                .select(postEntity.id)
+                .from(postEntity)
+                .where(eqPostId(dto.getPostId()))
+                .orderBy(postEntity.id.desc())
+                .offset(dto.getOffset())
+                .limit(dto.getLimit())
+                .fetch();
+
+
+    List<GetPostTableResponseDto> result = queryFactory
+                .select(
+                        Projections.fields(
+                                GetPostTableResponseDto.class,
+                                postEntity.id.as("postId"),
+                                userEntity.id.as("userId"),
+                                userEntity.name.as("userName"),
+                                postEntity.content.as("content"),
+                                postEntity.regDt.as("createdAt"),
+                                postEntity.updDt.as("updatedAt")
+                        ))
+                .from(postEntity)
+                .join(userEntity)
+                .on(postEntity.author.id.eq(userEntity.id))
+                .where(postEntity.id.in(ids))
+                .orderBy(postEntity.id.desc())
+                .fetch();
+
+        return new GetTableListResponse<>(total, result);
+    }
+
+    private BooleanExpression eqPostId(Long id){
+        if(id == null){
+            return null;
+        }
+        return postEntity.id.eq(id);
     }
 
     private BooleanExpression likeName(String name) {
