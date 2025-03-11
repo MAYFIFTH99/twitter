@@ -57,4 +57,11 @@ public class AdminController {
         modelAndView.addObject("totalCount", result.getTotalCount());
         return modelAndView;
     }
+
+    @GetMapping("/login")
+    public ModelAndView login(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
 }

@@ -25,3 +25,6 @@ logging.level:
 
 
 secret-key: secretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkeysecretkey
+
+fcm:
+  certification: adminsdk.json

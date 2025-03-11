@@ -20,6 +20,7 @@ public class LoginController {
     @PostMapping
     public Response<UserAccessTokenResponseDto> login(@RequestBody LoginRequestDto dto) {
         UserAccessTokenResponseDto token = userAuthService.login(dto);
+        System.out.println(dto.fcmToken());
         return Response.ok(token);
     }
 
