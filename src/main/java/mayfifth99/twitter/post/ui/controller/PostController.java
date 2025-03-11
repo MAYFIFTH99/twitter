@@ -1,6 +1,7 @@
 package mayfifth99.twitter.post.ui.controller;
 
 import lombok.RequiredArgsConstructor;
+import mayfifth99.twitter.common.idempotency.Idempotent;
 import mayfifth99.twitter.common.ui.Response;
 import mayfifth99.twitter.post.application.PostService;
 import mayfifth99.twitter.post.application.dto.CreatePostRequestDto;
@@ -31,6 +32,7 @@ public class PostController {
         return Response.ok(null);
     }
 
+    @Idempotent
     @PostMapping("/{postId}/like")
     public Response<Void> likePost(@PathVariable Long postId, @RequestBody LikeRequestDto dto){
         postService.likePost(postId, dto);
