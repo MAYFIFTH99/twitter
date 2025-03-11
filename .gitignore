@@ -32,6 +32,6 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
-
+/src/main/resources/adminsdk.json
 ### VS Code ###
 .vscode/
