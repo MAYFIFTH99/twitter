@@ -9,6 +9,8 @@ import mayfifth99.twitter.auth.domain.TokenProvider;
 import mayfifth99.twitter.auth.domain.UserAuth;
 import mayfifth99.twitter.auth.repository.interfaces.EmailVerificationRepository;
 import mayfifth99.twitter.auth.repository.interfaces.UserAuthRepository;
+import mayfifth99.twitter.message.repository.entity.FcmTokenEntity;
+import mayfifth99.twitter.message.repository.jpa.JpaFcmTokenRepository;
 import mayfifth99.twitter.user.domain.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ public class UserAuthService {
     private final UserAuthRepository userAuthRepository;
     private final EmailVerificationRepository emailVerificationRepository;
     private final TokenProvider tokenProvider;
+    private final JpaFcmTokenRepository jpaFcmTokenRepository;
 
     public Long registerUser(CreateUserAuthRequestDto dto){
         Email email = new Email(dto.email());
@@ -36,12 +39,13 @@ public class UserAuthService {
     }
 
     @Transactional
-    public UserAccessTokenResponseDto login(LoginRequestDto dto){
+    public UserAccessTokenResponseDto loginUser(LoginRequestDto dto) {
         UserAuth userAuth = userAuthRepository.findByEmail(dto.email());
         if (!userAuth.matchPassword(dto.password())) {
             throw new IllegalArgumentException("Invalid password");
         }
 
+        jpaFcmTokenRepository.save(new FcmTokenEntity(userAuth.getUserId(), dto.fcmToken()));
         return createToken(userAuth);
     }
 

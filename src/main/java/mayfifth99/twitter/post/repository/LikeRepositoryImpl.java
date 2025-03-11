@@ -3,6 +3,7 @@ package mayfifth99.twitter.post.repository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import mayfifth99.twitter.message.application.interfaces.MessageRepository;
 import mayfifth99.twitter.post.application.interfaces.LikeRepository;
 import mayfifth99.twitter.post.comment.Comment;
 import mayfifth99.twitter.post.domain.Post;
@@ -31,6 +32,7 @@ public class LikeRepositoryImpl implements LikeRepository {
     private final JpaLikeRepository jpaLikeRepository;
     private final JpaPostRepository jpaPostRepository;
     private final JpaCommentRepository jpaCommentRepository;
+    private final MessageRepository messageRepository;
 
     @Override
     public boolean checkLike(Post post, User user) {
@@ -44,6 +46,7 @@ public class LikeRepositoryImpl implements LikeRepository {
         LikeEntity likeEntity = new LikeEntity(post, user);
         em.persist(likeEntity);
         jpaPostRepository.updateLikeCount(post.getId(), 1); // PostEntity를 매개변수로 전달하면 갱신 유실 발생(동시성)
+        messageRepository.sendLikeMessage(user, post.getAuthor());
     }
 
     @Transactional
