@@ -16,7 +16,7 @@ public class UserService {
 
     public User createUser(CreateUserRequestDto dto) {
         UserInfo userInfo = new UserInfo(dto.name(), dto.profileImageUrl());
-        User user = new User(null, userInfo);
+        User user = new User(userInfo);
         return userRepository.save(user);
     }
 

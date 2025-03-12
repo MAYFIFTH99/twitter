@@ -24,6 +24,10 @@ public class User {
         this.followerCounter = new PositiveIntegerCounter();
     }
 
+    public User(UserInfo userInfo){
+        this(null, userInfo);
+    }
+
     public User(String name, String imageUrl) {
         this(null, new UserInfo(name, imageUrl));
     }
