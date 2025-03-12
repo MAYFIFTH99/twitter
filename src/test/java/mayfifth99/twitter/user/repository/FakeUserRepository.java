@@ -13,6 +13,7 @@ public class FakeUserRepository implements UserRepository {
     public User save(User user) {
         if(user.getId() != null){
             store.put(user.getId(), user);
+            return user;
         }
         Long id = store.size() + 1L;
         User newUser = new User(id, user.getUserInfo());

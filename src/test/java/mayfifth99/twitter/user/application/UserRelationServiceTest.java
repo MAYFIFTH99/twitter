@@ -72,13 +72,13 @@ class UserRelationServiceTest {
     }
 
     @Test
-    void givenCreateTwoUser_whenFollow_thenUserThrowError() throws Exception {
+    void givenCreateTwoUser_whenNoFollow_thenUserThrowError() throws Exception {
         //when & then
         assertThrows(IllegalArgumentException.class, () -> userRelationService.unfollow(requestDto));
     }
 
     @Test
-    void givenCreateOneUser_whenUnfollow_thenUserThrowError() throws Exception {
+    void givenCreateOneUser_whenUnfollowSameUser_thenUserThrowError() throws Exception {
         //given
         FollowUserRequestDto dto = new FollowUserRequestDto(user1.getId(),
                 user1.getId());

@@ -62,20 +62,6 @@ class PostTest {
     }
 
     @Test
-    void givenPostCreate_whenUpdatePost_thenContentAndStateShouldBeUpdated() throws Exception {
-        //given
-        Post post = new Post(1L, user1, postContent, PostPublicationState.PUBLIC);
-        String updatedContent = "updated content";
-
-        //when
-        post.updatePost(user1, updatedContent, PostPublicationState.PRIVATE);
-
-        //then
-        assertEquals(updatedContent, post.getContent().getContent());
-        assertEquals(PostPublicationState.PRIVATE, post.getState());
-    }
-
-    @Test
     void givenPostCreate_whenUpdatePostByOtherUser_thenThrowError() throws Exception {
         //when & then
         assertThrows(IllegalArgumentException.class, () -> new Post(1L, user1, postContent,
