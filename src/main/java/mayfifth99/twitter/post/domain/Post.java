@@ -42,6 +42,10 @@ public class Post {
     }
 
     public void like(User user){
+        if(user == null){
+            throw new IllegalArgumentException("사용자는 필수입니다.");
+        }
+
         if(author.equals(user)){
             throw new IllegalArgumentException("자신의 글은 좋아요 할 수 없습니다.");
         }
@@ -49,6 +53,14 @@ public class Post {
     }
 
     public void unlike(User user){
+        if(user == null){
+            throw new IllegalArgumentException("사용자는 필수입니다.");
+        }
+
+        if(author.equals(user)){
+            throw new IllegalArgumentException("자신의 글은 좋아요 취소 할 수 없습니다.");
+        }
+
         likeCount.decrease();
     }
 
