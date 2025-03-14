@@ -9,6 +9,8 @@ import mayfifth99.twitter.auth.domain.TokenProvider;
 import mayfifth99.twitter.auth.domain.UserAuth;
 import mayfifth99.twitter.auth.repository.interfaces.EmailVerificationRepository;
 import mayfifth99.twitter.auth.repository.interfaces.UserAuthRepository;
+import mayfifth99.twitter.message.repository.entity.FcmTokenEntity;
+import mayfifth99.twitter.message.repository.jpa.JpaFcmTokenRepository;
 import mayfifth99.twitter.user.domain.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
