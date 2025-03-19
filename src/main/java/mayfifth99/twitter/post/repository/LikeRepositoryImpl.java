@@ -15,7 +15,6 @@ import mayfifth99.twitter.post.repository.jpa.JpaLikeRepository;
 import mayfifth99.twitter.post.repository.jpa.JpaPostRepository;
 import mayfifth99.twitter.user.domain.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,7 +40,6 @@ public class LikeRepositoryImpl implements LikeRepository {
     }
 
     @Override
-    @Transactional
     public void like(Post post, User user) {
         LikeEntity likeEntity = new LikeEntity(post, user);
         em.persist(likeEntity);
@@ -49,7 +47,6 @@ public class LikeRepositoryImpl implements LikeRepository {
         messageRepository.sendLikeMessage(user, post.getAuthor());
     }
 
-    @Transactional
     @Override
     public void unlike(Post post, User user) {
         LikeId likeId = new LikeId(post.getId(), user.getId(), LikeTarget.POST);
@@ -63,7 +60,6 @@ public class LikeRepositoryImpl implements LikeRepository {
         return jpaLikeRepository.existsById(likeId);
     }
 
-    @Transactional
     @Override
     public void like(Comment comment, User user) {
         LikeEntity likeEntity = new LikeEntity(comment, user);
@@ -71,7 +67,6 @@ public class LikeRepositoryImpl implements LikeRepository {
         jpaCommentRepository.updateLikeCount(comment.getId(), 1);
     }
 
-    @Transactional
     @Override
     public void unlike(Comment comment, User user) {
         LikeId likeId = new LikeId(comment.getId(), user.getId(), LikeTarget.COMMENT);

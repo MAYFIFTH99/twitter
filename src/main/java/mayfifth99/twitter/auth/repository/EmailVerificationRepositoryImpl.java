@@ -7,7 +7,6 @@ import mayfifth99.twitter.auth.repository.entity.EmailVerificationEntity;
 import mayfifth99.twitter.auth.repository.interfaces.EmailVerificationRepository;
 import mayfifth99.twitter.auth.repository.jpa.JpaEmailVerificationRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -17,7 +16,6 @@ public class EmailVerificationRepositoryImpl implements EmailVerificationReposit
 
 
     @Override
-    @Transactional
     public void createEmailVerification(Email email, String token) {
         String emailAddress = email.getEmailText();
 
@@ -41,7 +39,6 @@ public class EmailVerificationRepositoryImpl implements EmailVerificationReposit
     }
 
     @Override
-    @Transactional
     public void verifyEmail(Email email, String token) {
         String emailText = email.getEmailText();
 

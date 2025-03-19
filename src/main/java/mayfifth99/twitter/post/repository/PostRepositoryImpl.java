@@ -22,7 +22,6 @@ public class PostRepositoryImpl implements PostRepository {
      * JPQL을 이용해 PostEntity를 업데이트하는 메서드를 추가했다.
      */
     @Override
-    @Transactional
     public Post save(Post post) {
         PostEntity postEntity = new PostEntity(post);
         if(postEntity.getId() != null){
@@ -35,7 +34,6 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Optional<Post> findById(Long postId) {
         return jpaPostRepository.findById(postId).map(PostEntity::toPost);
     }

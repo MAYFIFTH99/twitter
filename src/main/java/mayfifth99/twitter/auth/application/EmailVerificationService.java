@@ -7,6 +7,7 @@ import mayfifth99.twitter.auth.domain.TokenGenerator;
 import mayfifth99.twitter.auth.repository.interfaces.EmailSendRepository;
 import mayfifth99.twitter.auth.repository.interfaces.EmailVerificationRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class EmailVerificationService {
     private final EmailVerificationRepository emailVerificationRepository;
     private final EmailSendRepository emailSendRepository;
 
+    @Transactional
     public void sendEmail(SendEmailRequestDto dto){
         Email emailDomain = new Email(dto.email());
         String token = TokenGenerator.generateToken();
@@ -23,6 +25,7 @@ public class EmailVerificationService {
         emailVerificationRepository.createEmailVerification(emailDomain, token);
     }
 
+    @Transactional
     public void verifyEmail(String email, String token){
         Email emailVerification = new Email(email);
         emailVerificationRepository.verifyEmail(emailVerification, token);

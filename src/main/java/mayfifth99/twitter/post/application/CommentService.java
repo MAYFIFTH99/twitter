@@ -11,6 +11,7 @@ import mayfifth99.twitter.post.domain.Post;
 import mayfifth99.twitter.user.application.UserService;
 import mayfifth99.twitter.user.domain.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +26,7 @@ public class CommentService {
         return commentRepository.findById(commentId).orElseThrow(IllegalArgumentException::new);
     }
 
+    @Transactional
     public Comment createComment(CreateCommentRequestDto dto) {
         User user = userService.getUser(dto.userId());
         Post post = postService.getPost(dto.postId());
@@ -33,6 +35,7 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
+    @Transactional
     public void updateComment(Long commentId, UpdateCommentRequestDto dto){
         User user = userService.getUser(dto.userId());
         Comment comment = getComment(commentId);
@@ -41,6 +44,7 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    @Transactional
     public void likeComment(Long commentId, LikeRequestDto dto) {
         Comment comment = getComment(commentId);
         User user = userService.getUser(dto.userId());
@@ -53,6 +57,7 @@ public class CommentService {
         likeRepository.like(comment, user);
     }
 
+    @Transactional
     public void unlikeComment(Long commentId, LikeRequestDto dto) {
         Comment comment = getComment(commentId);
         User user = userService.getUser(dto.userId());

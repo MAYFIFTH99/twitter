@@ -24,7 +24,6 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    @Transactional
     public Comment save(Comment comment) {
         Post targetPost = comment.getPost();
         CommentEntity commentEntity = new CommentEntity(comment);
@@ -37,7 +36,6 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    @Transactional
     public void delete(Comment comment) {
         jpaCommentRepository.deleteById(comment.getId());
     }

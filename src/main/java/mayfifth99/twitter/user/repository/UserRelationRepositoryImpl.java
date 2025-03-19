@@ -11,7 +11,6 @@ import mayfifth99.twitter.user.repository.entity.UserRelationId;
 import mayfifth99.twitter.user.repository.jpa.JpaUserRelationRepository;
 import mayfifth99.twitter.user.repository.jpa.JpaUserRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -28,7 +27,6 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
     }
 
     @Override
-    @Transactional
     public void save(User user, User targetUser) {
         UserRelationEntity userRelationEntity = UserRelationEntity.builder()
                 .followingUserId(user.getId())
@@ -41,7 +39,6 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
     }
 
     @Override
-    @Transactional
     public void delete(User user, User targetUser) {
         UserRelationId userRelationId = new UserRelationId(user.getId(), targetUser.getId());
         jpaUserRelationRepository.deleteById(userRelationId);
