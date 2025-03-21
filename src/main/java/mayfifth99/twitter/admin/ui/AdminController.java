@@ -1,8 +1,8 @@
 package mayfifth99.twitter.admin.ui;
 
 import lombok.RequiredArgsConstructor;
-import mayfifth99.twitter.admin.ui.dto.GetPostTableRequestDto;
-import mayfifth99.twitter.admin.ui.dto.GetPostTableResponseDto;
+import mayfifth99.twitter.admin.ui.dto.posts.GetPostTableRequestDto;
+import mayfifth99.twitter.admin.ui.dto.posts.GetPostTableResponseDto;
 import mayfifth99.twitter.admin.ui.dto.GetTableListResponse;
 import mayfifth99.twitter.admin.ui.dto.users.GetUserTableRequestDto;
 import mayfifth99.twitter.admin.ui.dto.users.GetUserTableResponseDto;

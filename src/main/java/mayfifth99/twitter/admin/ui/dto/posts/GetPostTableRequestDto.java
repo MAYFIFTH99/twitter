@@ -1,4 +1,4 @@
-package mayfifth99.twitter.admin.ui.dto;
+package mayfifth99.twitter.admin.ui.dto.posts;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
