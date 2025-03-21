@@ -6,6 +6,7 @@ import mayfifth99.twitter.post.application.CommentService;
 import mayfifth99.twitter.post.application.dto.CreateCommentRequestDto;
 import mayfifth99.twitter.post.application.dto.LikeRequestDto;
 import mayfifth99.twitter.post.application.dto.UpdateCommentRequestDto;
+import mayfifth99.twitter.post.ui.controller.swagger.CommentControllerSpec;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/comment")
-public class CommentController {
+public class CommentController implements CommentControllerSpec {
 
     private final CommentService commentService;
 

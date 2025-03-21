@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mayfifth99.twitter.auth.application.UserAuthService;
 import mayfifth99.twitter.auth.application.dto.LoginRequestDto;
 import mayfifth99.twitter.auth.application.dto.UserAccessTokenResponseDto;
+import mayfifth99.twitter.auth.ui.swagger.LoginControllerSpec;
 import mayfifth99.twitter.common.ui.Response;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/login")
-public class LoginController {
+public class LoginController implements LoginControllerSpec {
 
     private final UserAuthService userAuthService;
 

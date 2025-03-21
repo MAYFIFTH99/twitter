@@ -5,6 +5,7 @@ import mayfifth99.twitter.auth.application.UserAuthService;
 import mayfifth99.twitter.auth.application.EmailVerificationService;
 import mayfifth99.twitter.auth.application.dto.CreateUserAuthRequestDto;
 import mayfifth99.twitter.auth.application.dto.SendEmailRequestDto;
+import mayfifth99.twitter.auth.ui.swagger.SignUpControllerSpec;
 import mayfifth99.twitter.common.ui.Response;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/signup")
 @RequiredArgsConstructor
-public class SignUpController {
+public class SignUpController implements SignUpControllerSpec {
 
     private final EmailVerificationService emailVerificationService;
     private final UserAuthService userAuthService;
 
 
+    @Override
     @PostMapping("/send-verification-email")
     public Response<Void> sendEmail(@RequestBody SendEmailRequestDto dto) {
         emailVerificationService.sendEmail(dto);
