@@ -31,12 +31,8 @@ public interface UserControllerSpec {
             requestBody = @RequestBody(
                     content = {
                             @Content(
-                                    mediaType = "application/json",
-                                    examples = {
-                                            @ExampleObject(name = "유저 조회 요청", value = GET_USER)
-                                                    }
-                                            )
-                                    }
+                                    mediaType = "application/json"
+                            )}
                             ))
             Response<GetUserResponseDto>getUserProfile(Long userId);
 
@@ -48,9 +44,4 @@ public interface UserControllerSpec {
             }
             """;
 
-    String GET_USER ="""
-            {
-              "userId": "1"
-            }
-            """;
 }

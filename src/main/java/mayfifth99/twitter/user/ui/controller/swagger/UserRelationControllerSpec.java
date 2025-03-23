@@ -56,17 +56,7 @@ public interface UserRelationControllerSpec {
             }
             """;
 
-    @Operation(summary = "팔로워 리스트 조회",
-    requestBody = @RequestBody(
-            content = {
-                    @Content(
-                            mediaType = "application/json",
-                            examples = {
-                                    @ExampleObject(name = "팔로워 리스트 조회", value = GET_FOLLOWER_LIST)
-                            }
-                    )
-            }
-    ))
+    @Operation(summary = "팔로워 리스트 조회")
     Response<List<GetUserListResponseDto>> getFollowerList(Long userId);
 
     String GET_FOLLOWER_LIST = """
@@ -75,17 +65,7 @@ public interface UserRelationControllerSpec {
             }
             """;
 
-    @Operation(summary = "팔로잉 리스트 조회",
-    requestBody = @RequestBody(
-            content = {
-                    @Content(
-                            mediaType = "application/json",
-                            examples = {
-                                    @ExampleObject(name = "팔로잉 리스트 조회", value = GET_FOLLOWING_LIST)
-                            }
-                    )
-            }
-    ))
+    @Operation(summary = "팔로잉 리스트 조회")
     Response<List<GetUserListResponseDto>> getFollowingList(Long userId);
 
     String GET_FOLLOWING_LIST = """

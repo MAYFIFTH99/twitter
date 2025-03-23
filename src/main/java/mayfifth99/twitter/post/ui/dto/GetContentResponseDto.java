@@ -21,4 +21,8 @@ public class GetContentResponseDto {
     private int likeCount;
     private boolean likedByMe;
 
+    public GetContentResponseDto(Long id, Long userId) {
+        this.id = id;
+        this.userId = userId;
+    }
 }

@@ -10,5 +10,6 @@ public class EmailSendRepositoryImpl implements EmailSendRepository {
     @Override
     public void sendEmail(Email email, String token) {
         //TODO
+        // Google SMTP 서버를 이용해 이메일 전송
     }
 }
