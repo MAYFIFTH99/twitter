@@ -22,4 +22,8 @@ public class GetPostContentResponseDto extends GetContentResponseDto{
                 .commentCount(postEntity.getCommentCount())
                 .build();
     }
+
+    public GetPostContentResponseDto(Long postId, Long userId) {
+        super(postId, userId);
+    }
 }
