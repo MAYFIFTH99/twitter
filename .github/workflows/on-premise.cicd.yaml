@@ -1,0 +1,49 @@
+name: twitter-on-premise-cicd
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: '태그 이름을 지정해주세요'
+        required: true
+        default: main
+
+jobs:
+  build-job:
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.set-version.outputs.VERSION_NAME }}
+    steps:
+      - id: set-version
+        run: |
+          echo "VERSION_NAME=$(echo "${{ github.event.inputs.tags }}" | sed "s/\./\-/g")" >> $GITHUB_OUTPUT
+          
+      - name: Check Version Name(minseok)
+        run: |
+          echo "Check Version -> ${{ steps.set-version.outputs.VERSION_NAME }}"
+
+      - name: Checkout Source Code(minseok)
+        uses: actions/checkout@v4
+        with:
+          ref: '${{ github.event.inputs.tags }}'
+
+      - name: Grant Execute Permission To Gradlew
+        run: chmod +x gradlew
+
+      - name: SetUp JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Build with Gradlew
+        run: ./gradlew clean test bootJar
+
+      - name: Add Version
+        run: |
+          mv build/libs/twitter-0.0.1-SNAPSHOT.jar build/lib/twitter-${{ steps.set-version.outputs.VERSION_NAME }}.jar
+
+      - name: Upload Artifact To Runner Server
+        uses: actions/upload-artifact@v4
+        with:
+          name: twitter-application  # twitter-application.zip 으로 upload
+          path: build/libs/twitter-${{ steps.set-version.outputs.VERSION_NAME }}.jar
