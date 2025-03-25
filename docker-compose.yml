@@ -1,0 +1,17 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:jdk17
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - ${HOST_JENKINS_HOME}:/var/jenkins_home
+    links:
+      - worker-1
+
+  worker-1:
+    image: jenkins/ssh-agent:latest-jdk17
+    volumes:
+      - ${HOST_JENKINS_WORKER_1}:/home/jenkins
+    environment:
+      - JENKINS_SLAVE_SSH_PUBKEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKCzt14jO3p3mBgU1ED0D/rXRQPu21DPgZ63ai/IAg/K jenkins@worker-1
