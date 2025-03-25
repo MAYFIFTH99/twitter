@@ -40,7 +40,7 @@ jobs:
 
       - name: Add Version
         run: |
-          mv build/libs/twitter-0.0.1-SNAPSHOT.jar build/lib/twitter-${{ steps.set-version.outputs.VERSION_NAME }}.jar
+          mv build/libs/twitter-0.0.1-SNAPSHOT.jar build/libs/twitter-${{ steps.set-version.outputs.VERSION_NAME }}.jar
 
       - name: Upload Artifact To Runner Server
         uses: actions/upload-artifact@v4
