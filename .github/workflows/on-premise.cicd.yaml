@@ -1,67 +1,23 @@
-name: twitter-on-premise-cicd
-on:
-  workflow_dispatch:
-    inputs:
-      tags:
-        description: '태그 이름을 지정해주세요'
-        required: true
-        default: main
+deploy-job:
+  runs-on: ubuntu-latest
+  needs: build-job
+  steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: twitter-application
+        path: build/libs/
 
-jobs:
-  build-job:
-    runs-on: ubuntu-latest
-    outputs:
-      release: ${{ steps.set-version.outputs.VERSION_NAME }}
-    steps:
-      - id: set-version
-        run: |
-          echo "VERSION_NAME=$(echo "${{ github.event.inputs.tags }}" | sed "s/\./\-/g")" >> $GITHUB_OUTPUT
-          
-      - name: Check Version Name(minseok)
-        run: |
-          echo "Check Version -> ${{ steps.set-version.outputs.VERSION_NAME }}"
+    - name: Deploy to EC2
+      run: |
+        echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+        chmod 600 private_key.pem
+        scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/twitter-${{ needs.build-job.outputs.release }}.jar ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER_NAME }}/twitter-${{ needs.build-job.outputs.release }}.jar
 
-      - name: Checkout Source Code(minseok)
-        uses: actions/checkout@v4
-        with:
-          ref: '${{ github.event.inputs.tags }}'
-
-      - name: Grant Execute Permission To Gradlew
-        run: chmod +x gradlew
-
-      - name: SetUp JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: 21
-          distribution: 'temurin'
-
-      - name: Build with Gradlew
-        run: ./gradlew clean bootJar
-
-      - name: Add Version
-        run: |
-          mv build/libs/twitter-0.0.1-SNAPSHOT.jar build/libs/twitter-${{ steps.set-version.outputs.VERSION_NAME }}.jar
-
-      - name: Upload Artifact To Runner Server
-        uses: actions/upload-artifact@v4
-        with:
-          name: twitter-application  # twitter-application.zip 으로 upload
-          path: build/libs/twitter-${{ steps.set-version.outputs.VERSION_NAME }}.jar
-
-  deploy-job:
-    runs-on: ubuntu-latest
-    needs: build-job
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: twitter-application
-          path: build/libs/
-
-      - name: Deploy to EC2
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/twitter-${{ needs.build-job.outputs.release }}.jar ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER_NAME }}/twitter-${{ needs.build-job.outputs.release }}.jar
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar -Dspring.profiles.active=prod /home/${{ secrets.EC2_USER_NAME }}/twitter-${{ needs.build-job.outputs.release }}.jar > app.log 2>&1 &"
-          rm -f private_key.pem
+        # 환경 변수 설정 후 스프링 부트 애플리케이션 실행
+        ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USER_NAME }}@${{ secrets.EC2_HOST }} "
+          export SPRING_PROFILES_ACTIVE=prod && 
+          pgrep java | xargs kill -9; 
+          nohup java -jar /home/${{ secrets.EC2_USER_NAME }}/twitter-${{ needs.build-job.outputs.release }}.jar > app.log 2>&1 &
+        "
+        rm -f private_key.pem
